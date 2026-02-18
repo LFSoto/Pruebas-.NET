@@ -1,0 +1,29 @@
+# Compilados de Visual Studio / .NET
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+
+# Archivos temporales de VS
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de dependencias
+packages/
+*.nupkg
+
+# Logs
+*.log
+
+# Cache de pruebas
+TestResult*/
+*.trx
+
+# Configs de sistema operativo
+.DS_Store
+Thumbs.db
