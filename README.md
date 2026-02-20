@@ -45,3 +45,32 @@ Incluye una librería (`CalculadoraLib`) y un proyecto de pruebas (`CalculadoraT
 3. Agregar nuevos paquetes (ejemplo: Moq):
 	```bash
 	dotnet add CalculadoraTests package Moq
+
+---
+
+# Reporte de pruebas y uso de Moq
+
+Breve descripción de las pruebas implementadas en `CalculadoraTests` y uso de Moq para aislar dependencias.
+
+- `CalculadoraUnitTests`:
+  - Pruebas de `Sumar`, `Restar`, `Multiplicar`, `Dividir` y división por cero.
+  - Se inyecta un `Mock<ITimeProvider>` en `SetUp` para devolver una hora válida (ej. 10:00) y evitar que la validación de horario impida las operaciones.
+
+- `CalculadoraServiceTests`:
+  - Pruebas que comprueban comportamiento dentro y fuera del horario mediante `Mock<ITimeProvider>` configurado con horas válidas e inválidas.
+
+Uso de Moq
+
+- Crear mocks: `new Mock<T>()` para `ITimeProvider`.
+- Configurar comportamiento con `Setup`, por ejemplo:
+  - `_timeProviderMock.Setup(tp => tp.Now).Returns(new DateTime(2026, 2, 19, 10, 0, 0));`
+
+
+Ejecución de pruebas
+
+- Desde la raíz del repositorio: `dotnet test`
+
+Notas
+
+- Proyecto dirigido a .NET 8 y C# 12.
+- Las pruebas controlan dependencias externas mediante Moq para garantizar resultados deterministas y permitir verificaciones de interacción.

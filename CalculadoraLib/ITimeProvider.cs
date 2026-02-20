@@ -9,6 +9,5 @@ namespace CalculadoraLib
     public interface ITimeProvider
     {
         DateTime Now { get; }
-        DateTime ahora { get; }
     }
 }
