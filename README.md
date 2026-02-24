@@ -1,47 +1,17 @@
-﻿# Calculadora - Fundamentos de Pruebas en .NET
-
-Este proyecto es una base para practicar **pruebas unitarias en .NET** usando **NUnit** y **Moq**.  
-Incluye una librería (`CalculadoraLib`) y un proyecto de pruebas (`CalculadoraTests`).  
-
+﻿# Práctica 1
 ---
 
-## Requisitos
+## Pruebas realizadas
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/es/)
-- [.NET 6 SDK o superior](https://dotnet.microsoft.com/en-us/download/dotnet)  
-- Git instalado en el sistema  
+1. Se realizaron pruebas unitarias para las funciones suma, resta, multiplicación y división en un horario hábil entre las 8:00 - 18:00,
+debe de realizar la operación respectiva correctamente
 
----
+2. Se realizaron pruebas unitarias para las funciones suma, resta, multiplicación y división en un horario NO hábil fuera de las 8:00 - 18:00,
+debe de arrojar una exepción indicando que la operación no se puede realizar porque está fuera de horario
 
-## Pasos para empezar
+3. Se realizan pruebas unitarias a la funcion de dividir un número entre 0 debe arrojar una excepción 
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/usuario/demo-calculadora.git
-   cd demo-calculadora
+## Explicación del uso de Moq
 
-2. **Restaurar dependencias**
-	```bash
-   dotnet restore
-
-3. **Compilar la solución**
-	```bash
-   dotnet build
-
-4. **Ejecutar las pruebas unitarias**
-	```bash
-   dotnet test
-
-  ## Comandos útiles
-
-1. Compilar:
-	```bash
-	dotnet build
-
-2. Ejecutar pruebas:
-	```bash
-	dotnet test
-
-3. Agregar nuevos paquetes (ejemplo: Moq):
-	```bash
-	dotnet add CalculadoraTests package Moq
+Se utiliza para simular los esencarios de prueba en el caso de la práctica se utiliza para simular el timepo en el que se ejecuta la prueba,
+en un esenario real debería de calcular el tiempo (hora) en que se ejecuta la operación.
