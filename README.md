@@ -8,7 +8,7 @@ Incluye una librería (`CalculadoraLib`) y un proyecto de pruebas (`CalculadoraT
 ## Requisitos
 
 - [Visual Studio 2022](https://visualstudio.microsoft.com/es/)
-- [.NET 6 SDK o superior](https://dotnet.microsoft.com/en-us/download/dotnet)  
+- [.NET 8 SDK o superior](https://dotnet.microsoft.com/en-us/download/dotnet)  
 - Git instalado en el sistema  
 
 ---
@@ -45,3 +45,23 @@ Incluye una librería (`CalculadoraLib`) y un proyecto de pruebas (`CalculadoraT
 3. Agregar nuevos paquetes (ejemplo: Moq):
 	```bash
 	dotnet add CalculadoraTests package Moq
+
+## Configuracion para el uso del Interface ITimeProvider
+En el proyecto `CalculadoraLib`, se ha definido una interfaz `ITimeProvider` para abstraer
+la obtención de la hora actual. Esto es útil para facilitar las pruebas unitarias,
+permitiendo simular diferentes momentos del tiempo sin depender del reloj del sistema.
+
+## Pruebas unitarias implementadas
+1. **Suma**: Verifica que la función de suma devuelve el resultado correcto.
+2. **Resta**: Verifica que la función de resta devuelve el resultado correcto.
+3. **Multiplicación**: Verifica que la función de multiplicación devuelve el resultado correcto.
+4 . **División**: Verifica que la función de división devuelve el resultado correcto
+6. **División por cero**: Verifica que la función de división lanza una excepción al intentar dividir por cero.
+7. Operacion en hora fuera del rango permitido: Verifica que las operaciones se comportan correctamente
+cuando se simula una hora fuera del rango permitido utilizando `ITimeProvider`.
+8. Operacion en hora dentro del rango permitido: Verifica que las operaciones se comportan correctamente
+
+## Pruebas del Servicio
+1. **Servicio de Suma y Guardado**: Verifica que el servicio de suma funciona correctamente y guarda el resultado en la base de datos simulada.
+2. **Servicio de Suma y Guardado Hora Fuera del Rango Permitido**: Verifica que el servicio de suma lanza una excepción cuando se simula una hora fuera del rango permitido utilizando `ITimeProvider`.
+

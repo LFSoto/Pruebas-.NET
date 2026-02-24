@@ -1,19 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11512.155 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadoraLib", "CalculadoraLib\CalculadoraLib.csproj", "{E0870DFB-FCED-4173-9847-F726B45CEC31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadoraTests", "CalculadoraTests\CalculadoraTests.csproj", "{2969AAA5-A9AC-4D95-BF5C-82E44FE8B3BD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB79CD75-466C-491E-BCAC-011C1F0E1120}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E0870DFB-FCED-4173-9847-F726B45CEC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -24,5 +26,11 @@ Global
 		{2969AAA5-A9AC-4D95-BF5C-82E44FE8B3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2969AAA5-A9AC-4D95-BF5C-82E44FE8B3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2969AAA5-A9AC-4D95-BF5C-82E44FE8B3BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D8C43E2-24DE-4E30-B75B-32F1B2F3B439}
 	EndGlobalSection
 EndGlobal
