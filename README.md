@@ -1,6 +1,6 @@
-﻿# Calculadora - Fundamentos de Pruebas en .NET
+# Calculadora - Práctica 1: Uso de Mock - Francinni Portuguez Castro.
 
-Este proyecto es una base para practicar **pruebas unitarias en .NET** usando **NUnit** y **Moq**.  
+Este proyecto es una base para practicar **pruebas unitarias en .NET** usando **NUnit** y **Moq**, contiene la solución creada para la práctica 1.  
 Incluye una librería (`CalculadoraLib`) y un proyecto de pruebas (`CalculadoraTests`).  
 
 ---
@@ -45,3 +45,37 @@ Incluye una librería (`CalculadoraLib`) y un proyecto de pruebas (`CalculadoraT
 3. Agregar nuevos paquetes (ejemplo: Moq):
 	```bash
 	dotnet add CalculadoraTests package Moq
+	
+---
+
+## Solución:
+
+Se crea la interfaz ITimeProvider para el uso de Mock con un método DateTime.
+Es utilizado en cada una de las operaciones, generando una fecha y hora para simular dentro o fuera de horario.
+
+---
+
+## Pruebas implementadas:
+
+Se creó casos de prueba para las 4 operaciones básicas de las cálculadora, prueba de división entre cero, pruebas de horario permitido y fuera de horario.
+A continuación se detalla la lista de casos:
+
+## CalculadoraServiceTest
+
+- DividirDentroHorario_DeberiaSerExitoso
+- DividirFueraHorario_DeberiaSerFallido
+- MultiplicarDentroHorario_DeberiaSerExitoso
+- MultiplicarFueraHorario_DeberiaSerFallido
+- RestarDentroHorario_DeberiaSerExitoso
+- RestarFueraHorario_DeberiaSerFallido
+- SumarDentroHorario_DeberiaSerExitoso
+- SumarFueraHorario_DeberiaSerFallido
+- SumarYGuardar_DeberiaGuardarOperacionEnRepositorio
+
+## CalculadoraUnitTest
+
+- Dividir_DeberíaRetornarErrorDivisionCero
+- Dividir_DeberiaRetornarResultadoCorrecto
+- Multiplicar_DeberiaRetornarResultadoCorrecto
+- Restar_DeberiaRetornarResultadoCorrecto
+- Sumar_DeberiaRetornarResultadoCorrecto
