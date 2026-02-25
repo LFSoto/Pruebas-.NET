@@ -2,6 +2,7 @@ namespace CalculadoraLib;
 
 public class CalculadoraService
 {
+    //Esta clase no crea estos objetos, se llama inyección de dependencias (te paso lo que necesitas)
     private readonly Calculadora _calculadora;
     private readonly IOperacionRepository _repo;
 
@@ -18,3 +19,5 @@ public class CalculadoraService
         return resultado;
     }
 }
+
+//Coordinador

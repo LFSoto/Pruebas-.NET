@@ -1,47 +1,29 @@
-﻿# Calculadora - Fundamentos de Pruebas en .NET
+# Unit Testing Practice - .NET
 
-Este proyecto es una base para practicar **pruebas unitarias en .NET** usando **NUnit** y **Moq**.  
-Incluye una librería (`CalculadoraLib`) y un proyecto de pruebas (`CalculadoraTests`).  
+## Información del Estudiante
+-Nombre del Estudiante: [Kenneth Oviedo Arrieta]
+- Curso: [SOFT-740 Test Automation in .NET]
+- Fecha: [February 25, 2025]
 
----
+## Descripción del Proyecto
+Este proyecto implementa pruebas unitarias para un servicio de Calculadora. El objetivo principal fue validar las operaciones aritméticas y aplicar un horario de oficina (08:00 - 18:00) utilizando inyección de dependencias y simulacros (mocking).
 
-## Requisitos
+## Pruebas Implementadas
+He implementado los siguientes escenarios de prueba utilizando NUnit:
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/es/)
-- [.NET 6 SDK o superior](https://dotnet.microsoft.com/en-us/download/dotnet)  
-- Git instalado en el sistema  
+1. Operaciones Básicas: Se validaron Suma, Resta, Multiplicación y División.
 
----
+2. Manejo de Errores: Se verificó que la división entre cero lance una excepción DivideByZeroException.
 
-## Pasos para empezar
+3. Validación de Tiempo: - Caso Válido: Las operaciones funcionan correctamente dentro del horario de oficina.
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/usuario/demo-calculadora.git
-   cd demo-calculadora
+4. Caso Inválido: Las operaciones lanzan una excepción InvalidOperationException fuera del horario de 08:00-18:00.
 
-2. **Restaurar dependencias**
-	```bash
-   dotnet restore
+## Cómo se utilizó Moq
+Utilicé Moq para aislar la clase Calculadora de la hora real del sistema:
 
-3. **Compilar la solución**
-	```bash
-   dotnet build
+Mock de ITimeProvider: Creé un simulacro de la interfaz ITimeProvider para simular diferentes momentos del día.
 
-4. **Ejecutar las pruebas unitarias**
-	```bash
-   dotnet test
+Setup: Utilicé .Setup(tp => tp.Now) para devolver valores específicos de DateTime en mis pruebas.
 
-  ## Comandos útiles
-
-1. Compilar:
-	```bash
-	dotnet build
-
-2. Ejecutar pruebas:
-	```bash
-	dotnet test
-
-3. Agregar nuevos paquetes (ejemplo: Moq):
-	```bash
-	dotnet add CalculadoraTests package Moq
+Verificación: En CalculadoraServiceTests, utilicé .Verify() para asegurar que el repositorio solo fuera llamado cuando la operación fuera exitosa y nunca cuando ocurriera una excepción.
