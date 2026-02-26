@@ -15,6 +15,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 
             ScreenshotHelper.TakeScreenshot(Driver, "form_test.png");
             Assert.Pass("Formulario llenado y enviado.");
+            //Assert.Pass("Formulario llenado y enviado.");
         }
     }
 }
