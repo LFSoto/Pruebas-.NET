@@ -9,6 +9,6 @@ Este proyecto contiene un esqueleto en .NET con NUnit y Selenium para practicar 
 
 ## Instalación
 ```bash
-git clone https://github.com/LFSoto/SOFT-740-Fundamentos.git
+git clone https://github.com/LFSoto/Pruebas-.NET.git
 cd AutomationPracticeDemo.Tests
 dotnet restore
