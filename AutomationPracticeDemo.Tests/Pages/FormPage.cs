@@ -28,6 +28,7 @@ namespace AutomationPracticeDemo.Tests.Pages
         public void Submit()
         {
             SubmitButton.Click();
+            
         }
     }
 }
