@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace AutomationPracticeDemo.Tests.Pages
 {
@@ -19,15 +21,63 @@ namespace AutomationPracticeDemo.Tests.Pages
 
         public void FillForm(string name, string email, string phone, string country)
         {
+            NameInput.Clear();
             NameInput.SendKeys(name);
+
+            EmailInput.Clear();
             EmailInput.SendKeys(email);
+
+            PhoneInput.Clear();
             PhoneInput.SendKeys(phone);
-            CountryDropdown.SendKeys(country);
+
+            SelectCountryByText(country);
         }
+
+        public void SelectCountryByText(string country)
+        {
+            var select = new SelectElement(CountryDropdown);
+            try
+            {
+                select.SelectByText(country);
+            }
+            catch (NoSuchElementException)
+            {
+                // If text not found, try selecting by value (fallback)
+                select.SelectByValue(country);
+            }
+        }
+
+        public string GetName() => NameInput.GetAttribute("value");
+        public string GetEmail() => EmailInput.GetAttribute("value");
+        public string GetPhone() => PhoneInput.GetAttribute("value");
 
         public void Submit()
         {
             SubmitButton.Click();
         }
+
+        public string WaitForAlertAndAccept(int timeoutSeconds = 5)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutSeconds));
+            wait.Until(d =>
+            {
+                try
+                {
+                    d.SwitchTo().Alert();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+
+            var alert = _driver.SwitchTo().Alert();
+            var text = alert.Text;
+            alert.Accept();
+            return text;
+        }
     }
 }
+
+
