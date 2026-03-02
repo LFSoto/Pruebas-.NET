@@ -56,11 +56,28 @@ namespace AutomationPracticeDemo.Tests.Pages
         {
             GenderInput.Click();
         }
+        public bool IsGenderSelected()
+        {
+            return GenderInput.Selected;
+        }
         public void days()
         {
             CheckboxMondayInput.Click();
             CheckboxTuesdayInput.Click();
             CheckboxwednesdaydInput.Click();
+        }
+
+        public bool daysSelectMonday()
+        {
+             return CheckboxMondayInput.Selected;
+        }
+        public bool daysSelectTuesday()
+        {
+            return CheckboxTuesdayInput.Selected;
+        }
+        public bool daysSelectWednesday()
+        {
+            return CheckboxwednesdaydInput.Selected;
         }
         public void country()
         {

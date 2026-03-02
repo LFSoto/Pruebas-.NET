@@ -13,11 +13,16 @@ namespace AutomationPracticeDemo.Tests.Tests
         {
             var formPage = new FormPage(Driver);
             formPage.FillForm("Gustavo Montero Gonzalez", "gumontero@test.com", "88651273", "Coyol, Alajuela");
+
             formPage.Gender();
+            Assert.That(formPage.IsGenderSelected(), Is.True, "El female debería estar marcado.");
             Thread.Sleep(3000);
             ScreenshotHelper.TakeScreenshot(Driver, "gender.png");
 
             formPage.days();
+            Assert.That(formPage.daysSelectMonday, Is.True, "Monday debería estar marcado.");
+            Assert.That(formPage.daysSelectTuesday, Is.True, "Tuesday debería estar marcado.");
+            Assert.That(formPage.daysSelectWednesday, Is.True, "Wednesday debería estar marcado.");
             Thread.Sleep(3000);
             ScreenshotHelper.TakeScreenshot(Driver, "days.png");
 
