@@ -45,7 +45,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 
             formPage.Datapicker1();
             Thread.Sleep(3000);
-            ScreenshotHelper.TakeScreenshot(Driver, "datepicker1.png");
+            ScreenshotHelper.TakeScreenshot(Driver, "datepicker1.png"); 
 
             formPage.Datapicker2();
             Thread.Sleep(3000);

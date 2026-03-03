@@ -190,7 +190,7 @@ namespace AutomationPracticeDemo.Tests.Pages
 
 
         }
-        public string GetMensajePantalla()
+        public string GetMensajePantalla() 
         {
             return Mensajepantalla.Text;
 
