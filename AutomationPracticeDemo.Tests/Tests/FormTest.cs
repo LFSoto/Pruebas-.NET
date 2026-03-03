@@ -1,6 +1,7 @@
-using NUnit.Framework;
 using AutomationPracticeDemo.Tests.Pages;
 using AutomationPracticeDemo.Tests.Utils;
+using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V137.BluetoothEmulation;
 
@@ -26,25 +27,39 @@ namespace AutomationPracticeDemo.Tests.Tests
             Thread.Sleep(3000);
             ScreenshotHelper.TakeScreenshot(Driver, "days.png");
 
-            formPage.country();
+            
+            Assert.That(formPage.country(), Is.EqualTo("Japan"));
             Thread.Sleep(3000);
             ScreenshotHelper.TakeScreenshot(Driver, "country.png");
 
-            formPage.Colors();
-             Thread.Sleep(3000); 
+           
+            Assert.That(formPage.Colors(), Is.EqualTo("Red"));
+            Thread.Sleep(3000); 
             ScreenshotHelper.TakeScreenshot(Driver, "colors.png");  
 
-            formPage.Animals();
-                Thread.Sleep(3000); 
+            
+            Assert.That(formPage.Animals(), Is.EqualTo("Dog"));
+            Thread.Sleep(3000); 
             ScreenshotHelper.TakeScreenshot(Driver, "animals.png");
 
 
             formPage.Datapicker1();
             Thread.Sleep(3000);
             ScreenshotHelper.TakeScreenshot(Driver, "datepicker1.png");
-           
+
+            formPage.Datapicker2();
+            Thread.Sleep(3000);
+            ScreenshotHelper.TakeScreenshot(Driver, "datepicker2.png");
+
+           String diaspantalla = formPage.Datapicker3("01/03/2026","30/03/2026");  
+            Thread.Sleep(3000);
+            ScreenshotHelper.TakeScreenshot(Driver, "datepicker3.png");
+
 
             formPage.Submit();
+            Thread.Sleep(3000);
+            Assert.That(formPage.GetMensajePantalla, Is.EqualTo("You selected a range of " + diaspantalla + " days."));
+
 
             ScreenshotHelper.TakeScreenshot(Driver, "form_test.png");
             Assert.Pass("Formulario llenado y enviado.");
@@ -71,5 +86,28 @@ namespace AutomationPracticeDemo.Tests.Tests
 
 
         }
+        [Test]
+        public void Should_AlertÇonfirmation()
+        {
+            var formPage = new FormPage(Driver);
+            formPage.alertConfirmation();
+            Thread.Sleep(3000);
+            IAlert alert = Driver.SwitchTo().Alert();
+            alert.Accept();
+        }
+        [Test]
+        public void Should_AlertPrompt()
+        {
+            var formPage = new FormPage(Driver);
+            formPage.alertPrompt();
+            IAlert prompt = Driver.SwitchTo().Alert();
+            string textoIngresado = "Gustavo";
+            prompt.SendKeys(textoIngresado);
+            Thread.Sleep(3000);
+            prompt.Accept();
+            Assert.That(formPage.GetMensajePantallaPrompt, Is.EqualTo("Hello " + textoIngresado + "! How are you today?"));
+
+        }
+
     }
 }

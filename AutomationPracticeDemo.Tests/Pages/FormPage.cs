@@ -31,6 +31,19 @@ namespace AutomationPracticeDemo.Tests.Pages
         private IWebElement SortedListInput => _driver.FindElement(By.Id("animals"));
 
         private IWebElement DatePicker1Input => _driver.FindElement(By.Id("datepicker"));
+        private IWebElement DatePicker1Input2 => _driver.FindElement(By.Id("txtDate"));
+        private IWebElement DatePicker3Start => _driver.FindElement(By.Id("start-date"));
+        private IWebElement DatePicker3End => _driver.FindElement(By.Id("end-date"));
+
+        private IWebElement Mensajepantalla => _driver.FindElement(By.Id("result"));
+
+        private IWebElement btnconfirmation => _driver.FindElement(By.Id("confirmBtn"));
+        private IWebElement btnPrompt => _driver.FindElement(By.Id("promptBtn"));
+
+        private IWebElement mensajepantallademo => _driver.FindElement(By.Id("demo"));
+        
+
+
 
         public void FillForm(string name, string email, string phone, string address)
 
@@ -39,7 +52,7 @@ namespace AutomationPracticeDemo.Tests.Pages
             EmailInput.SendKeys(email);
             PhoneInput.SendKeys(phone);
             AddressInput.SendKeys(address);
-            
+
 
         }
 
@@ -69,7 +82,7 @@ namespace AutomationPracticeDemo.Tests.Pages
 
         public bool daysSelectMonday()
         {
-             return CheckboxMondayInput.Selected;
+            return CheckboxMondayInput.Selected;
         }
         public bool daysSelectTuesday()
         {
@@ -79,19 +92,32 @@ namespace AutomationPracticeDemo.Tests.Pages
         {
             return CheckboxwednesdaydInput.Selected;
         }
-        public void country()
+        public String country()
         {
             SelectElement select = new SelectElement(CountryDropdown);
             select.SelectByText("Japan");
-
+            return select.SelectedOption.Text;
         }
-        public void Colors()
+      
+        public String Colors()
+        {
+            SelectElement select = new SelectElement(ColorsInput);
+            select.SelectByText("Red");
+            return select.SelectedOption.Text;
+        }
+        public String Animals()
+        {
+            SelectElement select = new SelectElement(SortedListInput);
+            select.SelectByText("Dog");
+            return select.SelectedOption.Text;
+        }
+        public void ColorsSelect()
         {
             SelectElement select = new SelectElement(ColorsInput);
             select.SelectByText("Red");
 
         }
-        public void Animals()
+        public void AnimalsSelect()
         {
             SelectElement select = new SelectElement(SortedListInput);
             select.SelectByText("Dog");
@@ -103,27 +129,85 @@ namespace AutomationPracticeDemo.Tests.Pages
             DatePicker1Input.Click();
 
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            // Esperar a que el datepicker (generalmente renderizado en #ui-datepicker-div) sea visible
+
             wait.Until(d => d.FindElement(By.CssSelector("#ui-datepicker-div")).Displayed);
 
-            // Navegar hasta febrero 2025 usando el contenedor global del datepicker
+
             while (true)
             {
                 string header = _driver.FindElement(By.CssSelector("#ui-datepicker-div .ui-datepicker-title")).Text;
-                if (header.Contains("February") && header.Contains("2027"))
+                if (header.Contains("March") && header.Contains("2026"))
                     break;
                 _driver.FindElement(By.CssSelector("#ui-datepicker-div .ui-datepicker-next")).Click();
-                // esperar a que el encabezado se actualice
+
                 wait.Until(d => d.FindElement(By.CssSelector("#ui-datepicker-div .ui-datepicker-title")).Displayed);
             }
 
-            // Seleccionar el día 10 dentro del contenedor global
+
             _driver.FindElement(By.XPath("//div[@id='ui-datepicker-div']//table[@class='ui-datepicker-calendar']//a[text()='10']")).Click();
         }
         public void Datapicker2()
         {
-        } public void Datapicker3()
+
+            DatePicker1Input2.Click();
+
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+
+
+            // Seleccionar año con SelectElement
+            IWebElement yearDropdown = wait.Until(d => d.FindElement(By.ClassName("ui-datepicker-year")));
+            var selectYear = new SelectElement(yearDropdown);
+            selectYear.SelectByText("2026");
+
+            // Seleccionar mes con SelectElement
+            IWebElement monthDropdown = wait.Until(d => d.FindElement(By.ClassName("ui-datepicker-month")));
+            var selectMonth = new SelectElement(monthDropdown);
+            selectMonth.SelectByText("Mar"); // O "March", según cómo aparezca en el HTML
+
+            // Seleccionar día
+            IWebElement dayCell = wait.Until(d => d.FindElement(By.XPath("//a[text()='25']")));
+            dayCell.Click();
+
+
+
+        }
+
+
+
+        public string Datapicker3(string fechainicio, string fechafinal)
         {
+
+            DatePicker3Start.SendKeys(fechainicio);
+            DatePicker3End.SendKeys(fechafinal);
+
+            DateTime fechaInicio1 = DateTime.ParseExact(fechainicio, "dd/MM/yyyy", null);
+            DateTime fechafin1 = DateTime.ParseExact(fechafinal, "dd/MM/yyyy", null);
+
+            int dias = (fechafin1 - fechaInicio1).Days;
+
+            return dias.ToString();
+
+
+
+        }
+        public string GetMensajePantalla()
+        {
+            return Mensajepantalla.Text;
+
+        }
+        public void alertConfirmation()
+        {
+            btnconfirmation.Click();
+        }
+        public void alertPrompt()
+        {
+            btnPrompt.Click();
+        }
+
+        public string GetMensajePantallaPrompt()
+        {
+            return mensajepantallademo.Text;
+
         }
     }
 }
