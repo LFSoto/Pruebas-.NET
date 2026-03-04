@@ -12,6 +12,7 @@ Este proyecto contiene un esqueleto en .NET con NUnit y Selenium para practicar 
 git clone https://github.com/LFSoto/Pruebas-.NET.git
 cd AutomationPracticeDemo.Tests
 dotnet restore
+dotnet test
 ```
 ## Pruebas realizadas
 1. Prueba elemento web RadioButton de selección de genero, captura de pantalla usando el método estándar de Selenium.
