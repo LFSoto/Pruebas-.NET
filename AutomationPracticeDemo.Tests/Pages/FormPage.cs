@@ -17,6 +17,8 @@ namespace AutomationPracticeDemo.Tests.Pages
         private IWebElement CountryDropdown => _driver.FindElement(By.Id("country"));
         private IWebElement SubmitButton => _driver.FindElement(By.ClassName("submit-btn"));
 
+        private IWebElement SubmitButton1 => _driver.FindElement(By.ClassName("submit-btn"));
+
         public void FillForm(string name, string email, string phone, string country)
         {
             NameInput.SendKeys(name);

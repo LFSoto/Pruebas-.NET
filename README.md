@@ -1,14 +1,17 @@
-# Proyecto de Pruebas Automatizadas - Automation Practice Demo
+# SOFT-740: Práctica 2 - Selenium Automation
+**Estudiante:** Kenneth Oviedo  
+**Fecha de entrega:** 04/03/2026
 
-Este proyecto contiene un esqueleto en .NET con NUnit y Selenium para practicar pruebas funcionales sobre el sitio [Automation Testing Practice](https://testautomationpractice.blogspot.com/).
+## ?? Descripción
+Suite de pruebas automatizadas con Selenium y NUnit para el sitio "Automation Testing Practice".
 
-## Requisitos
-- .NET 8 SDK
-- Google Chrome
-- ChromeDriver (instalado automÃ¡ticamente por NuGet)
+## ??? Elementos Automatizados
+* **Text boxes**: Llenado de formulario.
+* **RadioButtons**: Selección de género.
+* **DropDowns**: Selección de país.
+* **DatePicker**: Selección de fechas.
+* **Alerts**: Manejo de pop-ups.
 
-## InstalaciÃ³n
-```bash
-git clone https://github.com/LFSoto/Pruebas-.NET.git
-cd AutomationPracticeDemo.Tests
-dotnet restore
+## ?? Instrucciones
+1. **Instalar dependencias**: Ejecutar 'dotnet restore' en la terminal.
+2. **Ejecutar pruebas**: Usar el comando 'dotnet test' o el Explorador de Pruebas de Visual Studio.
