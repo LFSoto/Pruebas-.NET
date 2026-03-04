@@ -23,4 +23,8 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Reportes\Images\" />
+  </ItemGroup>
+
 </Project>

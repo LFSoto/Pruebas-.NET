@@ -1,3 +1,40 @@
-*bin
-*obj
-*vs
+# .gitignore for .NET projects
+
+# Build artifacts
+bin/
+obj/
+
+# Visual Studio / Rider
+.vs/
+*.user
+*.suo
+.idea/
+
+# NuGet
+*.nupkg
+.nuget/
+packages/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+.coverage*
+
+# Logs
+*.log
+
+# Publish output
+publish/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Report folders (no subir la carpeta de reportes)
+/Reportes/
+/Reporte/
+
+# Screenshots / Images (por si acaso)
+Reporte/Images/
+Reportes/Images/
