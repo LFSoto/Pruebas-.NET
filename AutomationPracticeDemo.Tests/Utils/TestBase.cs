@@ -15,6 +15,8 @@ namespace AutomationPracticeDemo.Tests.Utils
             options.AddArgument("--start-maximized");
             Driver = new ChromeDriver(options);
             Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
+
+            System.Threading.Thread.Sleep(5000); // Ver navegador 5 segundos
         }
 
         [TearDown]
