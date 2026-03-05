@@ -6,7 +6,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace AutomationPracticeDemo.Tests.Utils;
+namespace AutomationExercise.Tests.Utils;
 
 public class TestBase
 {
@@ -41,11 +41,11 @@ public class TestBase
             }
             else
             {
-                TestContext.WriteLine("No se encontró chromedriver en las carpetas buscadas. Usando constructor por defecto (PATH/NuGet).");
+                TestContext.WriteLine("No se encontró chromedriver en las carpetas buscadas. Usando constructor por defecto (PATH/NuGet).);
                 Driver = new ChromeDriver(options);
             }
 
-            //Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
+            Driver.Navigate().GoToUrl("https://automationexercise.com/");
 
             var wait = new WebDriverWait(new SystemClock(), Driver, TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(500));
             wait.Until(drv => ((IJavaScriptExecutor)drv).ExecuteScript("return document.readyState").Equals("complete"));
@@ -67,16 +67,6 @@ public class TestBase
             Driver.Quit();
             Driver.Dispose();
         }
-    }
-
-    /// <summary>
-    /// Genera una fecha aleatoria y la devuelve como cadena con el formato especificado.
-    /// </summary>
-    public static string GenerateRandomDateString(string formatoFecha)
-    {
-        var daysOffset = Random.Shared.Next(0, 10 * 365);
-        var randomDate = DateTime.Today.AddDays(daysOffset);
-        return randomDate.ToString(formatoFecha);
     }
 
     private static string GetPathFromProject()

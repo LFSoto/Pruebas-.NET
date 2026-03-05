@@ -95,7 +95,7 @@ public class FormPage
 
     public void SelectCountry(string country)
     {
-        // Selecciona el paÃ­s del dropdown por texto visible.
+        // Selecciona el país del dropdown por texto visible.
         var select = new SelectElement(DropdownCountry);
         select.SelectByText(country);
     }
@@ -108,7 +108,7 @@ public class FormPage
 
     public void SelectDateInDatePickerOne(string date)
     {
-        // EnvÃ­a la fecha y luego un TAB para salir del campo (trigger de cambio si aplica)
+        // Envía la fecha y luego un TAB para salir del campo (trigger de cambio si aplica)
         DatePicker1.SendKeys(date);
     }
 
@@ -124,16 +124,16 @@ public class FormPage
         // Valida que la fecha venga en el formato "dd/MM/yyyy " (ej: 31/12/2026)
         if (!DateTime.TryParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
         {
-            throw new FormatException($"La fecha debe tener el formato 'dd/MM/yyyy Â¡'. Valor recibido: '{date}'.");
+            throw new FormatException($"La fecha debe tener el formato 'dd/MM/yyyy ¡'. Valor recibido: '{date}'.");
         }
 
-        // Descomponer la fecha en variables dÃ­a, mes y aÃ±o
-        var day = parsedDate.Day;     // dÃ­a (ej: 31)
+        // Descomponer la fecha en variables día, mes y año
+        var day = parsedDate.Day;     // día (ej: 31)
         // Mes en formato abreviado (ej: "Mar", "Jan", "Jul")
         var month = parsedDate.ToString("MMM", CultureInfo.InvariantCulture);
-        var year = parsedDate.Year;   // aÃ±o (ej: 2026)
+        var year = parsedDate.Year;   // año (ej: 2026)
 
-        // Accionar el datepicker (acciÃ³n adicional puede ser necesaria segÃºn el control)
+        // Accionar el datepicker (acción adicional puede ser necesaria según el control)
 
         DatePicker1.SendKeys(Keys.Tab);
         LabelDatePicker2.Click();
@@ -142,7 +142,7 @@ public class FormPage
         var selectYear = new SelectElement(SelectDatePicker2Year);
         selectYear.SelectByText(year.ToString());
         var selectMonth = new SelectElement(SelectDatePicker2Month);
-        // Seleccionar el mes por texto abreviado (ej: "Mar", "Jan") segÃºn lo solicitado
+        // Seleccionar el mes por texto abreviado (ej: "Mar", "Jan") según lo solicitado
         selectMonth.SelectByText(month);
         GetDayDataPicker2(day.ToString()).Click();
 
