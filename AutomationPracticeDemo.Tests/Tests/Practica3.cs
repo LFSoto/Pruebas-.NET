@@ -72,12 +72,17 @@ namespace AutomationPracticeDemo.Tests.Tests
 			var MobileNumber = Driver.FindElement(By.Id("mobile_number"));
 			MobileNumber.SendKeys("12345678");
 
+			ScreenshotHelper.TakeScreenshot(Driver, "FormDone.png");
+
 			var CreateAccuntButton = Driver.FindElement(By.CssSelector("button[data-qa='create-account']"));
 			CreateAccuntButton.Click();
 
-			/*ScreenshotHelper.TakeScreenshot(Driver, "FormDone.png");
-			Assert.Pass("Formulario llenado y enviado.");*/
-		}
+			var CreatedMessage = Driver.FindElement(By.CssSelector("h2[data-qa='account-created']"));
+			ScreenshotHelper.TakeScreenshot(Driver, "accountCreated.png");
+
+			Assert.That(CreatedMessage.Text, Is.EqualTo("ACCOUNT CREATED!"), "El mensaje de éxito debería mostrarse");
+		
+	}
 
 	}
 
