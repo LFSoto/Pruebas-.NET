@@ -2,7 +2,9 @@
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace AutomationPracticeDemo.Tests.Tests
             options.AddArgument("--start-maximized");
             options.AddArgument("--disable-notifications");
             options.AddArgument("--disable-infobars");
-            options.AddArgument("--headless=new");
+           options.AddArgument("--headless=new");
             options.AddArgument("--window-size=1920,1080");
 
             Driver = new ChromeDriver(options);
@@ -81,36 +83,42 @@ namespace AutomationPracticeDemo.Tests.Tests
         public void ProductCar()
         {
             Driver.FindElement(By.XPath("//a[@href='/products']")).Click();
-            Driver.FindElement(By.XPath("//div[@class='productinfo text-center']//p[text()='Blue Top']/following-sibling::a[contains(@class,'add-to-cart')]")).Click();
-            Driver.FindElement(By.XPath("//button[normalize-space(text())='Continue Shopping']")).Click();
-            Driver.FindElement(By.XPath("//div[@class='productinfo text-center']//p[text()='Winter Top']/following-sibling::a[contains(@class,'add-to-cart')]")).Click();
-            Driver.FindElement(By.XPath("//u[normalize-space(text())='View Cart']")).Click();
+             IWebElement addToCartBtn = Driver.FindElement(By.XPath("//p[text()='Blue Top']/following-sibling::a[@class='btn btn-default add-to-cart']")); 
+            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView(true);", addToCartBtn);
+            addToCartBtn.Click();
+            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+            IWebElement continueShoppingBtn = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[text()='Continue Shopping']")));
+            continueShoppingBtn.Click();
+            IWebElement addToCartBtn2 = Driver.FindElement(By.XPath("//p[text()='Winter Top']/following-sibling::a[@class='btn btn-default add-to-cart']"));
+            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView(true);", addToCartBtn2);
+            addToCartBtn2.Click();
+            var wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+            IWebElement Viewcart = wait2.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//u[normalize-space(text())='View Cart']")));
+            Viewcart.Click();
             var car1 = Driver.FindElement(By.XPath("//a[contains(text(),'Blue Top')]"));
             Assert.That(car1.Displayed, Is.True, "Existe en el carrito");
             var car2 = Driver.FindElement(By.XPath("//a[contains(text(),'Winter Top')]"));
             Assert.That(car2.Displayed, Is.True, "Existe en el carrito");
-
-
-            var filaBlueTop = driver.FindElement(By.XPath("//td[@class='cart_description']/h4/a[text()='Blue Top']/ancestor::tr"));
-
-            string precioTexto = filaBlueTop.FindElement(By.XPath(".//td[@class='cart_price']/p")).Text;
-            string cantidadTexto = filaBlueTop.FindElement(By.XPath(".//td[@class='cart_quantity']/button")).Text;
-            string totalTexto = filaBlueTop.FindElement(By.XPath(".//td[@class='cart_total']/p")).Text;
-
+            var articulo1 = Driver.FindElement(By.XPath("//td[@class='cart_description']/h4/a[text()='Blue Top']/ancestor::tr"));
+            string precioTexto = articulo1.FindElement(By.XPath(".//td[@class='cart_price']/p")).Text;
+            string cantidadTexto = articulo1.FindElement(By.XPath(".//td[@class='cart_quantity']/button")).Text;
+            string totalTexto = articulo1.FindElement(By.XPath(".//td[@class='cart_total']/p")).Text;
             decimal precio = decimal.Parse(precioTexto.Replace("Rs.", "").Trim());
             int cantidad = int.Parse(cantidadTexto.Trim());
             decimal total = decimal.Parse(totalTexto.Replace("Rs.", "").Trim());
-
             decimal esperado = precio * cantidad;
-
-            // Assert con NUnit estilo "That"
-            Assert.That(total, Is.EqualTo(esperado),
-                $"El total mostrado ({total}) no coincide con el esperado ({esperado}) para Blue Top.");
-
-
+            Assert.That(total, Is.EqualTo(esperado), "Precio correcto primer articulo");
+            var articulo2 = Driver.FindElement(By.XPath("//td[@class='cart_description']/h4/a[text()='Blue Top']/ancestor::tr"));
+            string precioTexto2 = articulo2.FindElement(By.XPath(".//td[@class='cart_price']/p")).Text;
+            string cantidadTexto2 = articulo2.FindElement(By.XPath(".//td[@class='cart_quantity']/button")).Text;
+            string totalTexto2 = articulo2.FindElement(By.XPath(".//td[@class='cart_total']/p")).Text;
+            decimal precio2 = decimal.Parse(precioTexto2.Replace("Rs.", "").Trim());
+            int cantidad2 = int.Parse(cantidadTexto2.Trim());
+            decimal total2 = decimal.Parse(totalTexto2.Replace("Rs.", "").Trim());
+           decimal esperado2 = precio2 * cantidad2;
+            Assert.That(total2, Is.EqualTo(esperado2), "Precio correcto segundo articulo");
 
         }
-
 
 
     }
