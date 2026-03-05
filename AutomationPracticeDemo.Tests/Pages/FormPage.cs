@@ -11,7 +11,7 @@ namespace AutomationPracticeDemo.Tests.Pages
             _driver = driver;
         }
 
-        private IWebElement NameInput => _driver.FindElement(By.Id("name"));
+        /*private IWebElement NameInput => _driver.FindElement(By.Id("name"));
         private IWebElement EmailInput => _driver.FindElement(By.Id("email"));
         private IWebElement PhoneInput => _driver.FindElement(By.Id("phone"));
         private IWebElement CountryDropdown => _driver.FindElement(By.Id("country"));
@@ -28,7 +28,6 @@ namespace AutomationPracticeDemo.Tests.Pages
         public void Submit()
         {
             SubmitButton.Click();
-            
-        }
+        }*/
     }
 }
