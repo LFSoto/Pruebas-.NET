@@ -36,5 +36,5 @@ Thumbs.db
 /Reporte/
 
 # Screenshots / Images (por si acaso)
-Reporte/Images/
-Reportes/Images/
+Reporte/Images/*.png
+Reportes/Images/*.png
