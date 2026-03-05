@@ -48,23 +48,32 @@ namespace AutomationPracticeDemo.Tests.Tests
 			DaySelected.SelectByValue("1");
 
 
-			var FirstName = Driver.FindElement(By.Id("days"));
+			var FirstName = Driver.FindElement(By.Id("first_name"));
+			FirstName.SendKeys("Fran");
 
-			var LastName = Driver.FindElement(By.Id("days"));
+			var LastName = Driver.FindElement(By.Id("last_name"));
+			LastName.SendKeys("Prueba");
 
-			var Company = Driver.FindElement(By.Id("days"));
+			var Address = Driver.FindElement(By.Id("address1"));
+			Address.SendKeys("Mi dirección");
 
-			var Address = Driver.FindElement(By.Id("days"));
+			var Country = Driver.FindElement(By.Id("country"));
+			Country.SendKeys("País");
 
-			var Country = Driver.FindElement(By.Id("days"));
+			var State = Driver.FindElement(By.Id("state"));
+			State.SendKeys("Estado");
 
-			var State = Driver.FindElement(By.Id("days"));
+			var City = Driver.FindElement(By.Id("city"));
+			City.SendKeys("Ciudad");
 
-			var City = Driver.FindElement(By.Id("days"));
+			var Zipcode = Driver.FindElement(By.Id("zipcode"));
+			Zipcode.SendKeys("159753");
 
-			var Zipcode = Driver.FindElement(By.Id("days"));
+			var MobileNumber = Driver.FindElement(By.Id("mobile_number"));
+			MobileNumber.SendKeys("12345678");
 
-			var MobileNumber = Driver.FindElement(By.Id("days"));
+			var CreateAccuntButton = Driver.FindElement(By.CssSelector("button[data-qa='create-account']"));
+			CreateAccuntButton.Click();
 
 			/*ScreenshotHelper.TakeScreenshot(Driver, "FormDone.png");
 			Assert.Pass("Formulario llenado y enviado.");*/
