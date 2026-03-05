@@ -14,11 +14,12 @@ namespace AutomationPracticeDemo.Tests.Tests
             var formPage = new FormPage(Driver);
             formPage.ClickSignup();
 
-            formPage.NewUser("KennethTest", "visual@studio.com");
             Random rnd = new Random();
             int randomNumber = rnd.Next(1, 1000);
+            string nameRandom = "KennethTest" + randomNumber;
             string emailRandom = "PracticaClase3" + randomNumber + "@cenfotec.com";
 
+            formPage.NewUser(nameRandom, emailRandom);
 
             formPage.ClickSignupButton();
 
