@@ -18,6 +18,3 @@
 2. Ejecutar pruebas:
 	```bash
 	dotnet test
-
-
-
