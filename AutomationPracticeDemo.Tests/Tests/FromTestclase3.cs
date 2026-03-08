@@ -4,7 +4,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +26,7 @@ namespace AutomationPracticeDemo.Tests.Tests
             options.AddArgument("--start-maximized");
             options.AddArgument("--disable-notifications");
             options.AddArgument("--disable-infobars");
-           options.AddArgument("--headless=new");
+            options.AddArgument("--headless=new");
             options.AddArgument("--window-size=1920,1080");
 
             Driver = new ChromeDriver(options);
@@ -87,13 +86,35 @@ namespace AutomationPracticeDemo.Tests.Tests
             ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView(true);", addToCartBtn);
             addToCartBtn.Click();
             var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
-            IWebElement continueShoppingBtn = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[text()='Continue Shopping']")));
+            IWebElement continueShoppingBtn = wait.Until(drv =>
+            {
+                try
+                {
+                    var el = drv.FindElement(By.XPath("//button[text()='Continue Shopping']"));
+                    return (el != null && el.Displayed && el.Enabled) ? el : null;
+                }
+                catch (NoSuchElementException)
+                {
+                    return null;
+                }
+            });
             continueShoppingBtn.Click();
             IWebElement addToCartBtn2 = Driver.FindElement(By.XPath("//p[text()='Winter Top']/following-sibling::a[@class='btn btn-default add-to-cart']"));
             ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView(true);", addToCartBtn2);
             addToCartBtn2.Click();
             var wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
-            IWebElement Viewcart = wait2.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//u[normalize-space(text())='View Cart']")));
+            IWebElement Viewcart = wait2.Until(drv =>
+            {
+                try
+                {
+                    var el = drv.FindElement(By.XPath("//u[normalize-space(text())='View Cart']"));
+                    return (el != null && el.Displayed && el.Enabled) ? el : null;
+                }
+                catch (NoSuchElementException)
+                {
+                    return null;
+                }
+            });
             Viewcart.Click();
             var car1 = Driver.FindElement(By.XPath("//a[contains(text(),'Blue Top')]"));
             Assert.That(car1.Displayed, Is.True, "Existe en el carrito");
@@ -117,6 +138,41 @@ namespace AutomationPracticeDemo.Tests.Tests
             decimal total2 = decimal.Parse(totalTexto2.Replace("Rs.", "").Trim());
            decimal esperado2 = precio2 * cantidad2;
             Assert.That(total2, Is.EqualTo(esperado2), "Precio correcto segundo articulo");
+
+        }
+        [Test]
+        public void ContactUsform()
+        {
+            Driver.FindElement(By.XPath("//a[@href='/contact_us']")).Click();
+            Driver.FindElement(By.XPath("//input[@data-qa='name']")).SendKeys("Gustavo");
+            Driver.FindElement(By.XPath("//input[@data-qa='email']")).SendKeys("Gustavo@email.com");
+            Driver.FindElement(By.XPath("//input[@data-qa='subject']")).SendKeys("Curso");
+            Driver.FindElement(By.XPath("//textarea[@data-qa='message']")).SendKeys("Estoy interesado en el curso de automatizacion");
+            var rutaFolder = Path.GetFullPath(@"..\..\..\adjunto\prueba.png");
+            var archivo = Driver.FindElement(By.XPath("//input[@name='upload_file']"));
+            archivo.SendKeys(rutaFolder);
+            Driver.FindElement(By.XPath("//input[@data-qa='submit-button']")).Click();
+            Driver.SwitchTo().Alert().Accept();
+            var successMessage = Driver.FindElement(By.CssSelector(".status.alert.alert-success")).Text;
+            Assert.That(successMessage, Is.EqualTo("Success! Your details have been submitted successfully."));
+
+
+
+
+        }
+        [Test]
+        public void Suscripcion()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
+            IWebElement susbscribe = Driver.FindElement(By.Id("susbscribe_email"));
+            susbscribe.SendKeys("Gustavo@emial.com");
+            IWebElement susbscribeBtn = Driver.FindElement(By.Id("subscribe"));
+            susbscribeBtn.Click();
+            IWebElement susbscribeMessage = Driver.FindElement(By.Id("success-subscribe"));
+            Assert.That(susbscribeMessage.Text, Is.EqualTo("You have been successfully subscribed!"));
+
+
 
         }
 
