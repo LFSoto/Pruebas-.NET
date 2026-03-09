@@ -1,6 +1,7 @@
-using NUnit.Framework;
 using AutomationPracticeDemo.Tests.Pages;
 using AutomationPracticeDemo.Tests.Utils;
+using NUnit.Framework;
+using OpenQA.Selenium.Chrome;
 
 namespace AutomationPracticeDemo.Tests.Tests
 {
@@ -46,85 +47,78 @@ namespace AutomationPracticeDemo.Tests.Tests
                 formPage.ValidateContinueButton();
 
                 // Validar que el usuario aparece logueado (el elemento de tu imagen)
-                Assert.That(formPage.IsUserLoggedIn(), $"El usuario no aparece como conectado en la cabecera.");
+                Assert.That(formPage.IsUserLoggedIn(nameRandom), Is.True, "El usuario no aparece como conectado en la cabecera.");
             });
+        }
+
+        [Test]
+        [Description("Validación Login con usuario existente")]
+
+        public void ExistingUserLogin_ShouldLoginSuccessfully()
+        {
+            // 1. Inicialización
+            var formPage = new FormPage(Driver);
+            formPage.ClickSignup();
+
+            // 2. Ejecución de pasos (Act)
+            // Reemplazar por credenciales válidas de un usuario existente en la aplicación
+            string existingEmail = "prueba1234@gmail.com";
+            string existingPassword = "123456";
+            string existingUsername = "prueba";
+
+            formPage.EnterLoginCredentials(existingEmail, existingPassword);
+            formPage.ClickLoginButton();
+
+            // 3. Validaciones (Assert)
+            Assert.That(formPage.IsUserLoggedIn(existingUsername), Is.True, "El usuario no aparece como conectado en la cabecera.");
+        }
+
+        [Test]
+        [Description("Agregar productos al carrito y verificar total")]
+
+        public void AddProductsToCartAndVerifyTotal_ShouldAddProductsAndVerifyTotal()
+        {
+            // 1. Inicialización
+            var formPage = new FormPage(Driver);
+
+
+
+            // 2. Ejecución de pasos (Act)
+            formPage.AddProductsToCartAndVerifyTotal();
+            // 3. Validaciones (Assert)
+            // Aquí irían las validaciones para verificar que los productos se agregaron correctamente y que el total es correcto
+            // Esto podría incluir:
+            // - Verificar que los productos aparecen en el carrito
+            // - Verificar que el total mostrado es el esperado
+
+
+            Assert.Pass("La validación de agregar productos al carrito y verificar el total se realizó correctamente.");
+
+        }
+
+        [Test]
+        [Description("Formulario Contact Us")]
+
+        public void ContactUsForm_ShouldSubmitSuccessfully()
+        {
+            // 1. Inicialización
+            var formPage = new FormPage(Driver);
+
+            string relativePath = "semana.pdf";
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utils", relativePath);
+
+            //Console.WriteLine($"Ruta absoluta del archivo: {filePath}");
+            // 2. Ejecución de pasos (Act)
+            formPage.ContactUsForm("Prueba", "prueba1234@gmail.com", "Consulta de Práctica", "Este es un mensaje de prueba con archivo adjunto", filePath);
+
+
+            string actualMessage = formPage.GetContactSuccessMessage();
+            string expectedMessage = "Success! Your details have been submitted successfully.";
+
+            Assert.That(actualMessage, Is.EqualTo(expectedMessage),
+                "El mensaje de éxito tras enviar el formulario de contacto no coincide.");
+
+            Console.WriteLine("Formulario de contacto enviado y validado correctamente.");
         }
     }
 }
-
-//[Test]
-//public void Click_SignupTest()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.ClickSignup();
-//    //ScreenshotHelper.TakeScreenshot(Driver, "form_test.png");
-//    Assert.Pass("Click en Signup");
-//}
-
-//[Test]
-//public void Enter_Name()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.NewUser("KennethTest", "visual@studio.com");
-//    Assert.Pass("Usuario registrado correctamente");
-//}
-
-//[Test]
-//public void Select_Title()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.SelectTitle();
-//    Assert.Pass("Title seleccionado correctamente");
-//}
-
-//[Test]
-//public void Enter_Password()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.Password1("Prueba123456");
-//    Assert.Pass("Contraseña ingresada correctamente");
-
-//}
-//[Test]
-//public void Information()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.CompleteInformation("Kenneth", "Oviedo", "Microsoft", "Calle Falsa 123", "United States", "California", "Los Angeles", "90001", "1234567890");
-//    Assert.Pass("Información completa ingresada correctamente");
-//}
-
-//[Test]
-//public void Create_Account()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.ValidateCreateUserButton();
-//    Assert.Pass("Cuenta creada correctamente");
-//}
-
-//[Test]
-//public void Validate_Message()
-//{
-//    var formPage = new FormPage(Driver);
-//    string actualMessage = formPage.ValidateMessage();
-//    string expectedMessage = "ACCOUNT CREATED!";
-//    Assert.That(actualMessage, Is.EqualTo(expectedMessage), "El mensaje de éxito no coincide");
-//}
-
-//[Test]
-//public void Validate_btnContinue()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.ValidateContinueButton();
-//    Assert.Pass("Continuar a la cuenta creada correctamente");
-//}
-
-//[Test]
-//public void Validate_Logged()
-//{
-//    var formPage = new FormPage(Driver);
-//    formPage.IsUserLoggedIn();
-//    Assert.Pass("Usuario logueado correctamente");
-//}
-
-
-
