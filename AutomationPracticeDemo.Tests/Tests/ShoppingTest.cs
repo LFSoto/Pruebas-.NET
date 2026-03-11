@@ -32,7 +32,7 @@ public class ShoppingTest
     [TearDown]
     public void TearDown()
     {
-        //CloseBrowser();
+        CloseBrowser();
     }
 
     [Test]
@@ -112,6 +112,7 @@ public class ShoppingTest
         // Label de usuario logueado
         var loggedUserLocator = Driver.FindElement(By.XPath("//a[contains(text(), 'Logged in as')]"));
         Assert.That(loggedUserLocator.Text, Does.Contain(usuario), "El usuario logueado no es el esperado.");
+        ScreenshotHelper.TakeScreenshot(Driver, "Usuario_Login_Correcto");
     }
 
     [Test]
@@ -128,6 +129,7 @@ public class ShoppingTest
         // Se valida que el total del producto sea igual al precio por la cantidad
         ValidarTotalProducto(producto1);
         ValidarTotalProducto(producto2);
+        ScreenshotHelper.TakeScreenshot(Driver, "Carrito_Productos");
     }
 
     [Test]
@@ -161,6 +163,7 @@ public class ShoppingTest
         var alertSuccessMessageLocator = GetElementUntilIsVisible(By.XPath($"//div[@class='status alert alert-success' and contains(., 'Success')]"));
         Assert.That(alertSuccessMessageLocator.Text, Is.EqualTo("Success! Your details have been submitted successfully."),
             "El mensaje de éxito no es el esperado.");
+        ScreenshotHelper.TakeScreenshot(Driver, "registro_formulario_contactus");
     }
 
     [Test]
@@ -179,6 +182,7 @@ public class ShoppingTest
         var alertSuccessMessageLocator = GetElementUntilIsVisible(By.XPath($"//div[@class='alert-success alert' and contains(., 'subscribed!')]"));
         Assert.That(alertSuccessMessageLocator.Text, Is.EqualTo("You have been successfully subscribed!"),
             "El mensaje de éxito no es el esperado.");
+        ScreenshotHelper.TakeScreenshot(Driver, "Registro_Newsletter");
     }
 
 

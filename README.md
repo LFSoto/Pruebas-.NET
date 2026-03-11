@@ -13,7 +13,7 @@ git clone https://github.com/LFSoto/Pruebas-.NET.git
 cd Pruebas-.NET
 
 ## Para cambiar a la rama específica del proyecto
-git checkout ErickMeneses-SeleniumT2
+git checkout ErickMeneses-SeleniumClase3
 
 ## Para compilar y ejecutar las pruebas
 cd AutomationPracticeDemo.Tests
@@ -21,10 +21,15 @@ dotnet restore
 dotnet build
 dotnet test
 ```
+## Descripción del Proyecto
+
+El proyecto se enfoca en la utilizacion de Selenium WebDriver
+para automatizar pruebas funcionales en el sitio de Automation Testing Practice.
+Se han implementado pruebas para validar la funcionalidad de búsqueda, navegación y otras interacciones comunes en el sitio.
 
 ## Pruebas Incluidas
-- Contiene pruebas que llenan y envían un formulario,
-- Verifican los checkboxes de los días de la semana,
-- Prueban la selección de país en un dropdown,
-- Validan los datepickers, usando texto y usando el calendario.
-- Comprueban mensajes de alerta.
+Validacion del registro de usuario.
+Validacion de agregar productos al carrito y su total.
+Validacion de registro al newsletter.
+Validacion del formulario de contacto.
+Validacion del login con un usuario registrado.
