@@ -4,8 +4,8 @@ Este proyecto contiene un esqueleto en .NET con NUnit y Selenium para practicar 
 
 ## Requisitos
 - .NET 9 SDK
-- Google Chrome
-- ChromeDriver (instalado automáticamente por NuGet)
+- Google Chrome última versión (Versión 146.0.7680.72)
+- ChromeDriver (instalado automáticamente por NuGet) -- Versión compatible con Chrome Versión 146.0.7680.72 
 
 ## Instalación
 ```bash
