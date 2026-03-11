@@ -207,17 +207,29 @@ namespace AutomationPracticeDemo.Tests.Tests
 			wait.Until(drv => addProduct2.Displayed);
 			addProduct2.Click();
 
-			//Se hace clic en el link "View Cart" para ver la lista del carrito 
-			var viewCartLink = Driver.FindElement(By.CssSelector("a[href='/view_cart']"));
-			wait.Until(drv => viewCartLink.Displayed);
-			viewCartLink.Click();
+			//Se hace clic en el button 'View Cart' dentro del modal que aparece después de agregar al carrito
+			var modalViewCart = Driver.FindElements(By.CssSelector("#cartModal a[href='/view_cart']")).FirstOrDefault();
+
+			//Se consulta si el enlace "View Cart" está presente dentro del modal
+			if (modalViewCart != null)
+			{
+				wait.Until(drv => modalViewCart.Displayed && modalViewCart.Enabled);
+				modalViewCart.Click();
+			}
+			else
+			{
+				// Si no se encuentra el enlace dentro del modal, intentar el enlace del menú (fallback)
+				var viewCartLink = Driver.FindElement(By.CssSelector("a[href='/view_cart']"));
+				wait.Until(drv => viewCartLink.Displayed && viewCartLink.Enabled);
+				viewCartLink.Click();
+			}
 
 			//Se hace clic en el botón "Proceed To Checkout" para ver los productos y el monto total del carrito
 			var proceedToCheckoutButton = Driver.FindElement(By.XPath("//a[@class='btn btn-default check_out']"));
 			wait.Until(drv => proceedToCheckoutButton.Displayed);
 			proceedToCheckoutButton.Click();
 
-			//Se realiza el  scroll hacia el campo de suscripción para asegurar que estemos en la seccion correcta de la página
+			//Se realiza el  scroll hacia el campo para asegurar que estemos en la seccion correcta de la página
 			var scrollDown = Driver.FindElement(By.XPath("//td[@class='cart_price']//p"));
 			IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
 			js.ExecuteScript("arguments[0].scrollIntoView(true);", scrollDown);
@@ -236,10 +248,12 @@ namespace AutomationPracticeDemo.Tests.Tests
 			//var total = Driver.FindElement(By.XPath("//p[@class='cart_total_price' and text()='Rs. 900']"));
 			Match matchP1 = Regex.Match(priceP1.Text, @"\d+");
 			int precio1 = 0, precio2 = 0;
+
+			//Se extrae el valor numérico del precio del primer producto utilizando una expresión regular y se convierte a entero
 			if (matchP1.Success)
 				precio1 = int.Parse(matchP1.Value);
-			
 
+			//Se extrae el valor numérico del precio del primer producto utilizando una expresión regular y se convierte a entero
 			Match matchP2 = Regex.Match(priceP2.Text, @"\d+");
 			if (matchP2.Success)
 				precio2 = int.Parse(matchP2.Value);
