@@ -45,8 +45,7 @@ public class TestBase
                 Driver = new ChromeDriver(options);
             }
 
-            //Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
-
+            // No navegar por defecto; los tests manejan su propia navegación
             var wait = new WebDriverWait(new SystemClock(), Driver, TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(500));
             wait.Until(drv => ((IJavaScriptExecutor)drv).ExecuteScript("return document.readyState").Equals("complete"));
         }
@@ -62,10 +61,75 @@ public class TestBase
     [TearDown]
     public void TearDown()
     {
+        // Ensure we log out to leave a clean state for the next test
+        try
+        {
+            EnsureLoggedOut();
+        }
+        catch (Exception ex)
+        {
+            TestContext.WriteLine("Error during EnsureLoggedOut: " + ex);
+        }
+
         if (Driver != null)
         {
             Driver.Quit();
             Driver.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// Intenta cerrar la sesión si el enlace "Logout" está presente.
+    /// Esta función es segura y captura cualquier excepción para no romper el TearDown.
+    /// </summary>
+    protected void EnsureLoggedOut()
+    {
+        if (Driver == null)
+            return;
+
+        try
+        {
+            // Buscar enlaces que puedan indicar sesión iniciada
+            var possibleLogoutXpaths = new[]
+            {
+                "//a[contains(., 'Logout')]",
+                "//a[contains(., 'Log Out')]",
+                "//a[contains(., 'LOGOUT')]",
+                "//a[contains(., 'Log out')]"
+            };
+
+            foreach (var xpath in possibleLogoutXpaths)
+            {
+                var els = Driver.FindElements(By.XPath(xpath));
+                if (els != null && els.Count > 0)
+                {
+                    try
+                    {
+                        // click the first visible logout link
+                        var el = els.FirstOrDefault(e => e.Displayed);
+                        if (el != null)
+                        {
+                            try { el.Click(); }
+                            catch { ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].click();", el); }
+
+                            // wait briefly for logout to complete
+                            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+                            wait.Until(d => d.FindElements(By.XPath("//a[contains(., 'Signup / Login')]"))?.Count > 0);
+                        }
+                    }
+                    catch (Exception inner)
+                    {
+                        TestContext.WriteLine($"Warning: fallo al intentar hacer logout con xpath '{xpath}': {inner.Message}");
+                    }
+
+                    // If we attempted logout, stop checking other xpaths
+                    return;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            TestContext.WriteLine("EnsureLoggedOut caught exception: " + ex);
         }
     }
 
