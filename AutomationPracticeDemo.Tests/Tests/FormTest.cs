@@ -58,6 +58,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 			ScreenshotHelper.TakeScreenshot(Driver, "selectedRadioButtonGender_test.png");
 
 			// Validar que el radiobutton Female está seleccionado
+			//validar
 			Assert.That(formPage.IsFemaleRadioButtonSelected, "El radiobutton Female debería estar marcado");
 		}
 

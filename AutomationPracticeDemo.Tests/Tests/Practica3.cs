@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutomationPracticeDemo.Tests.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+
 
 namespace AutomationPracticeDemo.Tests.Tests
 {
@@ -44,7 +46,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 		string emailRandom = "fran" + random + "@cenfotec.com";
 		string name = "abcd1";
 		string apellido = "Prueba";
-		string password = "password";
+		string password = "123abc**1";
 		string email = "abcd1@abcd1.com";
 		string rutaImagen = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\Paisaje.jpg"));
 
@@ -70,12 +72,6 @@ namespace AutomationPracticeDemo.Tests.Tests
 			//Se selecciona el genero en el formulario de registro
 			var titleRadiobutton = Driver.FindElement(By.Id("id_gender2"));
 			titleRadiobutton.Click();
-
-			/*var NameInput2 = Driver.FindElement(By.Id("name"));
-			NameInput2.SendKeys(name);
-
-			var EmailInput2 = Driver.FindElement(By.Id("email"));
-			EmailInput2.SendKeys(emailRandom);*/
 
 			//Se llena el campo de contraseña en el formulario de registro
 			var Password = Driver.FindElement(By.Id("password"));
@@ -172,6 +168,25 @@ namespace AutomationPracticeDemo.Tests.Tests
 		[Test]
 		public void Caso3_AgregarProductosAlCarrito()
 		{
+
+			Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+			//Se hace clic en el enlace "Signup / Login" para acceder a la página de inicio de sesión
+			var SignupLink = Driver.FindElement(By.CssSelector("a[href='/login']"));
+			SignupLink.Click();
+
+			//Se llena el campo de correo electrónico 
+			var emailAddress = Driver.FindElement(By.CssSelector("input[data-qa='login-email']"));
+			emailAddress.SendKeys(email);
+
+			//Se llena el campo de contraseña
+			var passwordField = Driver.FindElement(By.CssSelector("input[data-qa='login-password']"));
+			passwordField.SendKeys(password);
+
+			//Se hace clic en el botón "Login" para enviar el formulario de inicio de sesión
+			var loginButton = Driver.FindElement(By.CssSelector("button[data-qa='login-button']"));
+			loginButton.Click();
+
 			//Se hace clic en la opción "Products" para acceder a la página de productos
 			var productsOption = Driver.FindElement(By.CssSelector("a[href='/products']"));
 			productsOption.Click();
@@ -189,10 +204,12 @@ namespace AutomationPracticeDemo.Tests.Tests
 
 			//Se agrega el segundo producto al carrito
 			var addProduct2 = Driver.FindElement(By.XPath("//div[@class='productinfo text-center']//a[@data-product-id='2']"));
+			wait.Until(drv => addProduct2.Displayed);
 			addProduct2.Click();
 
 			//Se hace clic en el link "View Cart" para ver la lista del carrito 
 			var viewCartLink = Driver.FindElement(By.CssSelector("a[href='/view_cart']"));
+			wait.Until(drv => viewCartLink.Displayed);
 			viewCartLink.Click();
 
 			//Se hace clic en el botón "Proceed To Checkout" para ver los productos y el monto total del carrito
@@ -200,25 +217,44 @@ namespace AutomationPracticeDemo.Tests.Tests
 			wait.Until(drv => proceedToCheckoutButton.Displayed);
 			proceedToCheckoutButton.Click();
 
-			//Se valida el primer producto agregado al carrito y se toma captura de evidencia
-			var priceP1 = Driver.FindElement(By.XPath("//p[@class='cart_total_price' and text()='Rs. 500']"));
-			ScreenshotHelper.TakeScreenshot(Driver, "firstProduct.png");
-			Console.WriteLine("Precio total: " + priceP1.Text);
+			//Se realiza el  scroll hacia el campo de suscripción para asegurar que estemos en la seccion correcta de la página
+			var scrollDown = Driver.FindElement(By.XPath("//td[@class='cart_price']//p"));
+			IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+			js.ExecuteScript("arguments[0].scrollIntoView(true);", scrollDown);
 
+			//Se valida el primer producto agregado al carrito y se toma captura de evidencia
+			var priceP1 = Driver.FindElement(By.XPath("//tr[@id='product-1']//td[@class='cart_price']//p"));
+			ScreenshotHelper.TakeScreenshot(Driver, "firstProduct.png");
+			Assert.That(priceP1.Text, Is.EqualTo("Rs. 500"), "El precio del primer producto debería mostrarse");
+			
 			//Se valida el segundo producto agregado al carrito y se toma captura de evidencia
-			var priceP2 = Driver.FindElement(By.XPath("//p[@class='cart_total_price' and text()='Rs. 400']"));
+			var priceP2 = Driver.FindElement(By.XPath("//tr[@id='product-2']//td[@class='cart_price']//p"));
 			ScreenshotHelper.TakeScreenshot(Driver, "secondProduct.png");
-			Console.WriteLine("Precio total: " + priceP2.Text);
+			Assert.That(priceP2.Text, Is.EqualTo("Rs. 400"), "El precio del segundo producto debería mostrarse");
 
 			//Se valida que el precio total del carrito sea correcto después de agregar los productos y se toma captura de evidencia
-			var total = Driver.FindElement(By.XPath("//p[@class='cart_total_price' and text()='Rs. 900']"));
-			ScreenshotHelper.TakeScreenshot(Driver, "totalCart.png");
-			Console.WriteLine("Precio total: " + total.Text);
+			//var total = Driver.FindElement(By.XPath("//p[@class='cart_total_price' and text()='Rs. 900']"));
+			Match matchP1 = Regex.Match(priceP1.Text, @"\d+");
+			int precio1 = 0, precio2 = 0;
+			if (matchP1.Success)
+				precio1 = int.Parse(matchP1.Value);
+			
 
-			/*var loginLabel = Driver.FindElement(By.XPath("//a[contains(text(),'Logged in as')]"));
-			ScreenshotHelper.TakeScreenshot(Driver, "loggedUser.png");
-			Assert.That(loginLabel.Text, Is.EqualTo("Logged in as " + name), "El nombre de usuario debería mostrarse");
-			*/
+			Match matchP2 = Regex.Match(priceP2.Text, @"\d+");
+			if (matchP2.Success)
+				precio2 = int.Parse(matchP2.Value);
+		
+			var cantidad1 = Driver.FindElement(By.XPath("//tr[@id='product-1']//td[@class='cart_quantity']"));
+			var cantidad2 = Driver.FindElement(By.XPath("//tr[@id='product-2']//td[@class='cart_quantity']"));
+			var subtotal1 = precio1 * int.Parse(cantidad1.Text);
+			var subtotal2 = precio2 * int.Parse(cantidad2.Text);
+			var total =  subtotal1 + subtotal2;
+
+			var totalCart = Driver.FindElement(By.XPath("//tr[last()]//td[last()]//p[@class='cart_total_price']"));
+
+			ScreenshotHelper.TakeScreenshot(Driver, "totalCart.png");
+			Assert.That(totalCart.Text, Is.EqualTo("Rs. " + total), "El precio total debería mostrarse");
+			
 		}
 
 		[Test]
@@ -245,8 +281,11 @@ namespace AutomationPracticeDemo.Tests.Tests
 			messageField.SendKeys(name);
 
 			//Se selecciona el archivo a subir 
-			/*var archivo = Driver.FindElement(By.Name("upload_file"));
-			archivo.SendKeys(rutaImagen);*/
+			var archivo = Driver.FindElement(By.Name("upload_file"));
+			//Console.WriteLine("archivo: " + archivo + "Ruta del archivo: " + rutaImagen);
+			//WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+			//wait.Until(drv => archivo.Displayed);
+			archivo.SendKeys(rutaImagen);
 
 			//Se da click en el botón de submit para enviar el formulario de contacto
 			var submitButton = Driver.FindElement(By.CssSelector("input[data-qa='submit-button']"));
