@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Reportes\Images\NewFolder\**" />
+    <EmbeddedResource Remove="Reportes\Images\NewFolder\**" />
+    <None Remove="Reportes\Images\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="NUnit" Version="4.4.0" />
@@ -20,10 +26,6 @@
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Reportes\Images\" />
   </ItemGroup>
 
 </Project>
