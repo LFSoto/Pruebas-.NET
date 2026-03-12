@@ -1,0 +1,43 @@
+[
+  {
+    "AccountInformation": {
+      "Title": "Mr",
+      "Name": "NombreUsuario",
+      "Password": "ContrasenaTestAut",
+      "DateOfBirth": "3/November/1993"
+    },
+    "AddressInformation": {
+      "FirstName": "Jose",
+      "LastName": "Arias",
+      "Company": "Banco de Costa Rica",
+      "Address": "San Jose,Perez Zeledon,San Isidro",
+      "Address2": "Pejibaye",
+      "Country": "Canada",
+      "State": "San Jose",
+      "City": "San Isidro",
+      "Zipcode": "11901",
+      "MobileNumber": "50612345678"
+    }
+  }, 
+  {
+    "AccountInformation": {
+      "Title": "Mrs",
+      "Name": "Mariana",
+      "Password": "ContrasenaTestAut2",
+      "DateOfBirth": "15/May/1985"
+    },
+    "AddressInformation": {
+      "FirstName": "Mariana",
+      "LastName": "Lopez",
+      "Company": "Tech Solutions",
+      "Address": "Alajuela,Central,Alajuela",
+      "Address2": "San Rafael",
+      "Country": "United States",
+      "State": "California",
+      "City": "Los Angeles",
+      "Zipcode": "90001",
+      "MobileNumber": "1234567890"
+    }
+  }
+]
+
