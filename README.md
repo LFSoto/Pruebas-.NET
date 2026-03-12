@@ -1,11 +1,11 @@
-# Proyecto de Pruebas Automatizadas - Automation Practice Demo - Practica #3 - Francinni Portuguez Castro.
+# Proyecto de Pruebas Automatizadas - Automation Practice Demo - Practica #4 - Francinni Portuguez Castro.
 
 Este proyecto contiene un esqueleto en .NET con NUnit y Selenium para practicar pruebas funcionales sobre el sitio [Automation Exercise](https://automationexercise.com).
 
 ## Requisitos
 - .NET 9 SDK
 - Google Chrome última versión (Versión 146.0.7680.72)
-- ChromeDriver (instalado automáticamente por NuGet) -- Versión compatible con Chrome Versión 146.0.7680.72 
+- ChromeDriver (instalado automáticamente por NuGet) -- Versión compatible con Chrome Versión 146.0.7680.72
 
 ## Instalación
 ```bash
