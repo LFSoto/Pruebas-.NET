@@ -2,39 +2,39 @@
   {
     "AccountInformation": {
       "Title": "Mr",
-      "Name": "NombreUsuario",
-      "Password": "ContrasenaTestAut",
+      "Name": "Tavo1",
+      "Password": "12345678",
       "DateOfBirth": "3/November/1993"
     },
     "AddressInformation": {
-      "FirstName": "Jose",
-      "LastName": "Arias",
+      "FirstName": "Gustavo",
+      "LastName": "MOntero",
       "Company": "Banco de Costa Rica",
-      "Address": "San Jose,Perez Zeledon,San Isidro",
-      "Address2": "Pejibaye",
+      "Address": "Alajuela,Alajuela, san jose",
+      "Address2": "Coyol",
       "Country": "Canada",
-      "State": "San Jose",
-      "City": "San Isidro",
-      "Zipcode": "11901",
-      "MobileNumber": "50612345678"
+      "State": "Alajuela",
+      "City": "Coyol",
+      "Zipcode": "20101",
+      "MobileNumber": "88884444"
     }
   },
   {
     "AccountInformation": {
       "Title": "Mrs",
-      "Name": "Mariana",
-      "Password": "ContrasenaTestAut2",
+      "Name": "Magaly",
+      "Password": "12345678",
       "DateOfBirth": "15/May/1985"
     },
     "AddressInformation": {
-      "FirstName": "Mariana",
-      "LastName": "Lopez",
-      "Company": "Tech Solutions",
+      "FirstName": "Magaly",
+      "LastName": "Porras",
+      "Company": "Service NOW",
       "Address": "Alajuela,Central,Alajuela",
-      "Address2": "San Rafael",
+      "Address2": "Coyol",
       "Country": "United States",
-      "State": "California",
-      "City": "Los Angeles",
+      "State": "ALajuela",
+      "City": "Coyol",
       "Zipcode": "90001",
       "MobileNumber": "1234567890"
     }

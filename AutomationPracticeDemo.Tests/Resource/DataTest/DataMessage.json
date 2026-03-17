@@ -1,13 +1,13 @@
 [
   {
-    "name": "Karina",
-    "email": "KaArraya@gmail.com",
+    "name": "Luis",
+    "email": "Luis@gmail.com",
     "subject": "Prueba Automatizada",
     "message": "Se realizo la practica obteniendo los datos de un Json"
   },
   {
-    "name": "Armando",
-    "email": "Armando@gmail.com",
+    "name": "Tavo",
+    "email": "tavo@gmail.com",
     "subject": "Prueba",
     "message": "Se realizo la practica obteniendo los datos de un Json"
   }
