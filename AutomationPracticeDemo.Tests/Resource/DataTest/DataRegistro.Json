@@ -1,0 +1,15 @@
+[
+  {
+    "nombre": "maria",
+    "correo": "aria6@qa.com",
+    "contrasena": "123456",
+    "primerNombre": "maria",
+    "apellido": "rojas",
+    "direccion": "calle 21",
+    "pais": "Israel",
+    "estado": "Israel",
+    "ciudad": "Tangamandapio",
+    "codigoZip": "22125",
+    "numeroTelefono": "88888888"
+  }
+]

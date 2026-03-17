@@ -1,0 +1,12 @@
+[
+  {
+    "email": "aria@qa.com",
+    "password": "123456",
+    "isValid": true
+  },
+  {
+    "email": "Practica@qa.com",
+    "password": "ContraseñaErronea",
+    "isValid": false
+  }
+]

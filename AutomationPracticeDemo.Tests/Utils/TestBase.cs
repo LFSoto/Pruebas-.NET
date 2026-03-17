@@ -13,8 +13,12 @@ namespace AutomationPracticeDemo.Tests.Utils
         {
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
+            options.AddArgument("--headless=new");
+            options.AddArgument("--window-size=1920,1080");
+            options.AddArgument("--disable-notifications");
+            options.AddArgument("--disable-infobars");
             Driver = new ChromeDriver(options);
-            Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
+            Driver.Navigate().GoToUrl("https://automationexercise.com/");
         }
 
         [TearDown]
