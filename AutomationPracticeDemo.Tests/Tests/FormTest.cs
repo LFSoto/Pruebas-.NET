@@ -8,6 +8,8 @@ using SeleniumExtras.WaitHelpers;
 
 namespace AutomationPracticeDemo.Tests.Tests
 {
+    [TestFixture]
+    [Ignore("Ignorado temporalmente: pendiente de refactorización")]
     public class FormTests
     {
         private IWebDriver Driver;

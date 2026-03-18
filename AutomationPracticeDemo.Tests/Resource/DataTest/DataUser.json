@@ -1,0 +1,22 @@
+[
+  {
+    "email": "SOFT-740@cenfotec.com",
+    "password": "SOFT-740",
+    "isValid": true
+  },
+  {
+    "email": "PracticaAUT552@cenfotec.com",
+    "password": "ContraseñaTestAUT",
+    "isValid": true
+  },
+  {
+    "email": "Cenfo12345@cenfotec.com",
+    "password": "InvalidPassword",
+    "isValid": false
+  },
+  {
+    "email": "CenfoPruebas@cenfotec.com",
+    "password": "Test987654",
+    "isValid": false
+  }
+]
