@@ -1,0 +1,22 @@
+[
+  {
+    "email": "abcd1@abcd1.com",
+    "password": "123abc**1",
+    "isValid": true
+  },
+  {
+    "email": "abcd2@abcd2.com",
+    "password": "123abc**1",
+    "isValid": true
+  },
+  {
+    "email": "abcd3@abcd3.com",
+    "password": "123abc**1",
+    "isValid": false
+  },
+  {
+    "email": "abcd4@abcd4.com",
+    "password": "123abc**1",
+    "isValid": false
+  }
+]

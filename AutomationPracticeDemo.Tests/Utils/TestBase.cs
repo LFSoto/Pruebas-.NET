@@ -11,10 +11,21 @@ namespace AutomationPracticeDemo.Tests.Utils
         [SetUp]
         public void Setup()
         {
-            var options = new ChromeOptions();
+           /* var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             Driver = new ChromeDriver(options);
-			Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
+			//Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");*/
+			
+
+			//Configuración del driver de Chrome con opciones personalizadas para la automatización de pruebas
+			var options = new ChromeOptions();
+			options.AddArgument("--start-maximized");
+			options.AddArgument("--disable-notifications");
+			options.AddArgument("--disable-infobars");
+			options.AddArgument("--headless=new"); //Se usa para ejecutar las pruebas sin levantar la interfaz
+			options.AddArgument("--window-size=1920,1080");
+			Driver = new ChromeDriver(options);
+			Driver.Navigate().GoToUrl("https://automationexercise.com");
 		}
 
         [TearDown]

@@ -1,0 +1,26 @@
+[
+  {
+      "name": "Usuario1",
+      "password": "ContrasenaTestAut",
+      "firstName": "Maria",
+      "lastName": "Rivera",
+      "address": "San Jose,Desamparados,Higuito",
+      "country": "Costa Rica",
+      "state": "San Jose",
+      "city": "Desamparados",
+      "zipcode": "996633",
+      "mobileNumber": "50688779955"
+  }, 
+  {
+      "name": "Usuario2",
+      "password": "ContrasenaTestAut",
+      "firstName": "Juan",
+      "lastName": "Lopez",
+      "address": "Cartago, Turrialba, Santa Cruz",
+      "country": "United State",
+      "state": "Cartagoe",
+      "city": "Turrialba",
+      "zipcode": "128956",
+      "mobileNumber": "50622114455"
+  }
+]

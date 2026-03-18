@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -24,33 +25,12 @@ namespace AutomationPracticeDemo.Tests.Pages
 		//Métodos necesarios para interactuar con los elementos de la página
 				
 		//Se llena el campo del formulario de contacto con el nombre
-		public void Fill_NameInput(String name)
+		public void Fill_ContactForm(String name, String email, String subject, String message, String rutaImagen)
 		{
 			NameField.SendKeys(name);
-		}
-
-		//Se llena el campo del formulario de contacto con el email
-		public void Fill_EmailField(String email)
-		{
 			EmailField.SendKeys(email);
-		}
-
-		//Se llena el campo del formulario de contacto con el subject
-		public void Fill_SubjectField(String subject)
-		{
 			SubjectField.SendKeys(subject);
-
-		}
-
-		//Se llena el campo del formulario de contacto con el mensaje
-		public void Fill_MessageField(String message)
-		{
 			MessageField.SendKeys(message);
-		}
-
-		//Se selecciona el archivo a subir 
-		public void Fill_Archivo(String rutaImagen)
-		{
 			Archivo.SendKeys(rutaImagen);
 		}
 
@@ -72,12 +52,6 @@ namespace AutomationPracticeDemo.Tests.Pages
 		{
 			return SuccessMessage.Text;
 		}
-
-		/*
-		//Se valida que el mensaje de éxito se muestre después de enviar el formulario de contacto y se toma captura de evidencia
-		ScreenshotHelper.TakeScreenshot(Driver, "successContactUs.png");
-		Assert.That(Check_SuccessMessage().Text, Is.EqualTo("Success! Your details have been submitted successfully."), "El mensaje de exito debería mostrarse");private IWebElement NameInput => _driver.FindElement(By.Id("name"));
-		*/
 
 	}
 }
