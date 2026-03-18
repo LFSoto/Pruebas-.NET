@@ -2,9 +2,14 @@ name: .NET 9 Selenium Tests + Release
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - Semana5-GitActions
   pull_request:
-    branches: [ main, develop ]
+    branches:
+      - main
+      - develop
+      - Semana5-GitActions
 
 permissions:
   contents: write
