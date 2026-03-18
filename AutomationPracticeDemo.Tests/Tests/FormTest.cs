@@ -22,11 +22,11 @@ namespace AutomationPracticeDemo.Tests.Tests
              Assert.Pass("Formulario llenado y enviado."); 
     }*/
 
-        [Test]
-        public void Register_User()
-        {
-            var formPage = new FormPage(Driver);
+        //[Test]
+        //public void Register_User()
+        //{
+        //    var formPage = new FormPage(Driver);
 
-        }
+        //}
     }
 }
