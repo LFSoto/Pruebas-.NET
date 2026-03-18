@@ -17,11 +17,14 @@ namespace AutomationPracticeDemo.Tests.Utils
             options.AddArgument("--disable-infobars");
             options.AddArgument("--headless=new");
             options.AddArgument("--window-size=1920,1080");
+
             Driver = new ChromeDriver(options);
 
-            // Configurar tiempo de espera implícito de 10 segundos
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Driver.Navigate().GoToUrl("https://automationexercise.com/signup");
+            // Espera implícita corta (preferir waits explícitos en los PageObjects)
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+
+            // Entrar siempre por la home para que el menú (logout, login, etc.) exista de forma consistente
+            Driver.Navigate().GoToUrl("https://automationexercise.com/");
         }
 
         [TearDown]
