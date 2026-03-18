@@ -1,0 +1,17 @@
+[
+  {
+    "name": "user_1001",
+    "email": "user1001@example.com",
+    "password": "Password123!",
+    "first_name": "Test",
+    "last_name": "User",
+    "company": "MyCompany",
+    "address1": "123 Main St",
+    "address2": "Apt 1",
+    "country": "United States",
+    "state": "CA",
+    "city": "San Francisco",
+    "zipcode": "94101",
+    "mobile_number": "+11234567890"
+  }
+]

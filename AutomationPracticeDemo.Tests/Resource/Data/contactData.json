@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Automated Tester",
+    "email": "tester+contact1@example.com",
+    "subject": "Consulta automatizada",
+    "message": "Mensaje de prueba enviado por pruebas automatizadas.",
+    "attachFile": false
+  },
+  {
+    "name": "QA Bot",
+    "email": "qa+contact2@example.com",
+    "subject": "Consulta DDT",
+    "message": "Segundo dataset para Contact Us.",
+    "attachFile": true
+  }
+]
