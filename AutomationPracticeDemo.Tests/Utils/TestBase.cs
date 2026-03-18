@@ -20,10 +20,10 @@ namespace AutomationPracticeDemo.Tests.Utils
 
             Driver = new ChromeDriver(options);
 
-            // Espera implícita corta (preferir waits explícitos en los PageObjects)
+            // Implicit wait corto. Los PageObjects deben usar WebDriverWait.
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
 
-            // Entrar siempre por la home para que el menú (logout, login, etc.) exista de forma consistente
+            // Entrar siempre por la home
             Driver.Navigate().GoToUrl("https://automationexercise.com/");
         }
 

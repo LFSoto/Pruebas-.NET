@@ -23,7 +23,7 @@ namespace AutomationPracticeDemo.Tests.Tests.Login
 
             // Navegación a la página de registro
             menuPage.ClickSignUpLogin();
-            Assert.That(loginPage.GetTitleLoginAccount, Is.EqualTo("Login to your account"));
+            Assert.That(loginPage.GetTitleLoginAccount(), Is.EqualTo("Login to your account"));
 
             //Llenado del formulario de login
             loginPage.FillLogin(email, password);
@@ -42,13 +42,16 @@ namespace AutomationPracticeDemo.Tests.Tests.Login
 
             //Navegación a la página de registro
             menuPage.ClickSignUpLogin();
-            Assert.That(loginPage.GetTitleLoginAccount, Is.EqualTo("Login to your account"));
+            Assert.That(loginPage.GetTitleLoginAccount(), Is.EqualTo("Login to your account"));
 
             //Llenado del formulario de login
             loginPage.FillLogin(email, password);
             loginPage.SubmitLogin();
-            Assert.That(loginPage.GetMessageIncorrectPassword, Is.EqualTo("Your email or password is incorrect!"));
+
+            var message = loginPage.GetMessageIncorrectPassword();
             ScreenshotHelper.TakeScreenshot(Driver, "LoginWithNotValidUser.png");
+
+            Assert.That(message, Is.EqualTo("Your email or password is incorrect!"));
         }
     }
 }
