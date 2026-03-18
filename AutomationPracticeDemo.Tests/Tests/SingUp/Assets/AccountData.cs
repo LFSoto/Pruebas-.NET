@@ -1,0 +1,34 @@
+﻿namespace AutomationPracticeDemo.Test.Tests.SingUp.Assets;
+
+public class AccountData
+{
+    private AccountInfo _accountInformation;
+    private AddressInfo _addressInformation;
+
+    public AccountData(AccountInfo accountInformation, AddressInfo addressInformation)
+    {
+        _accountInformation = accountInformation;
+        _addressInformation = addressInformation;
+    }
+
+    public AccountInfo AccountInformation
+    {
+        get => _accountInformation;
+        set => _accountInformation = value;
+    }
+
+    public AddressInfo AddressInformation
+    {
+        get => _addressInformation;
+        set => _addressInformation = value;
+    }
+
+    public AccountInfo GetAccountInformation()
+    {
+        return this._accountInformation;
+    }
+    public AddressInfo GetAddressInformation()
+    {
+        return this._addressInformation;
+    }
+}

@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Karina",
+        "email": "KaArraya@test.com",
+        "subject": "Prueba Automatizada",
+        "message": "Se realizo la practica obteniendo los datos de un Json"
+    },
+    {
+        "name": "Erick",
+        "email": "emeneses@test.com",
+        "subject": "Camiseta Color",
+        "message": "Hola, me gustaría obtener informcacion acerca de los colores de camisetas a la venta"
+    }
+]

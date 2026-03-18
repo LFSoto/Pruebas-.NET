@@ -1,0 +1,26 @@
+[
+    {
+        "email": "emeneses_1772680170689@test.com",
+        "password": "password12345!",
+        "nombreUsuario": "Erick Meneses",
+        "isValid": true
+    },
+    {
+        "email": "PracticaAUT552@cenfotec.com",
+        "password": "ContraseñaTestAUT",
+        "nombreUsuario": "UsuarioPracticaAUT",
+        "isValid": true
+    },
+    {
+        "email": "emeneses_0321321@test.com",
+        "password": "ContraseñaErronea",
+        "nombreUsuario": "emeneses",
+        "isValid": false
+    },
+    {
+        "email": "CorreoErroneo@cenfotec.com",
+        "password": "ContraseñaTestAUT",
+        "nombreUsuario": "erroneo",
+        "isValid": false
+    }
+]

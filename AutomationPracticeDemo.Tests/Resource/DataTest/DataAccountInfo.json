@@ -1,0 +1,42 @@
+[
+    {
+        "AccountInformation": {
+            "Title": "Mr",
+            "Name": "Erick Meneses",
+            "Password": "password12345!",
+            "DateOfBirth": "3/November/1993"
+        },
+        "AddressInformation": {
+            "FirstName": "Erick",
+            "LastName": "Meneses",
+            "Company": "Banco de Costa Rica",
+            "Address": "San Carlos",
+            "Address2": "Quesada",
+            "Country": "United States",
+            "State": "Florida",
+            "City": "Miami",
+            "Zipcode": "33206-3206",
+            "MobileNumber": "(786) 322-2032"
+        }
+    },
+    {
+        "AccountInformation": {
+            "Title": "Mrs",
+            "Name": "Mariana Lopez",
+            "Password": "ContrasenaTestAut2",
+            "DateOfBirth": "15/May/1985"
+        },
+        "AddressInformation": {
+            "FirstName": "Mariana",
+            "LastName": "Lopez",
+            "Company": "Tech Solutions",
+            "Address": "Alajuela,Central,Alajuela",
+            "Address2": "San Rafael",
+            "Country": "United States",
+            "State": "California",
+            "City": "Los Angeles",
+            "Zipcode": "90001",
+            "MobileNumber": "1234567890"
+        }
+    }
+]
