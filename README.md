@@ -1,79 +1,54 @@
-# Práctica:Primeros Pasos - Selenium
+# Pruebas-.NET — Semana 5 (GitHub Actions)
 
-[![.NET 9 Selenium Tests](https://github.com/LFSoto/SOFT-740-Fundamentos/actions/workflows/dotnet-tests.yml/badge.svg?branch=MaximinoBejarano-SeleniumGIT)](https://github.com/LFSoto/SOFT-740-Fundamentos/actions/workflows/dotnet-tests.yml)
-# Clonar una rama desde GitHub
-1. Ve al repositorio en GitHub https://github.com/LFSoto/SOFT-740-Fundamentos.git.
-2. Haz clic en el botón **Code**, luego a la izquierda de la rama actual selecciona la lista de ramas **branches**.
-3. Haz click en el botón **New branch** y se muestra la ventana modal "Create a branch".
-4. En el campo de texto "New branch name" escribe el nombre de la rama.
-5. selecciona la rama base en el campo **Source**
-6. Crea la nueva rama con el botón "Create new branch".
+Este repo contiene ejemplos en .NET. En la rama `Semana5-GitActions` se incluye un ejemplo de **CI/CD con GitHub Actions** para ejecutar pruebas automatizadas (Selenium + NUnit) y publicar resultados.
 
-## Cambiar a una rama distinta desde Visual Studio (UI Git)
+## Pipeline (GitHub Actions)
 
-Para cambiar de rama usando la interfaz gráfica de Visual Studio:
+Workflow: `/.github/workflows/dotnet-tests.yml`
 
-1. Abre el proyecto en Visual Studio.
-2. Ve al panel **Cambios de GIT** (puedes acceder desde el menú **Ver > Cambios de GIT**).
-3. En la parte superior del panel, haz clic en el nombre de la rama actual (por ejemplo, `main`).
-4. Se abrirá una lista de ramas disponibles en el repositorio.
-5. Selecciona la rama a la que deseas cambiar (por ejemplo, `SeleniumTema2` etc.).
-6. Visual Studio cambiará automáticamente a esa rama.
-7. Si hay cambios remotos en esa rama, haz clic en el botón **fetch`** para descargar las actualizaciones del repositorio remoto.
-8. Finalmente ejecuta en la terminalel comando dotnet restore
+Al ejecutarse, el pipeline:
 
-## Instalación de dependencias en Visual Studio (UI de NuGet)
-1. Abre el proyecto en Visual Studio.
-2. En el Explorador de soluciones, haz clic derecho sobre el proyecto y selecciona Administrar paquetes NuGet.
-3. En la pestaña Examinar, busca e instala los paquetes necesario, ejemplo: NUnit.
-4. Confirma que los paquetes aparecen en la pestaña Instalado
+1. Restaura dependencias (`dotnet restore`)
+2. Compila en Release (`dotnet build -c Release`)
+3. Ejecuta pruebas (`dotnet test -c Release`) y genera un archivo `.trx`
+4. Publica artifacts:
+   - Carpeta completa `TestResults/`
+   - Archivo(s) `.trx` (por separado para descarga rápida)
+5. Publica un resumen de resultados en el **Job Summary**
+6. En `push` a `main` y si las pruebas pasan, crea un **GitHub Release** con:
+   - Tag con formato `YYYY.MM.DD` y si ya existe uno del día, usa `YYYY.MM.DD.v1`, `v2`, etc.
+   - Asset `automation-source.zip` con el código fuente (sin `bin/`, `obj/`, `TestResults/`)
 
-## Instalación de dependencias de Selenium desde la terminal
-Si prefieres instalar las dependencias de Selenium usando la terminal de Visual Studio, sigue estos pasos:
+## Requisitos (ejecución local)
 
-1. Abre Visual Studio y carga el proyecto.
-2. Ve a la terminal de powershell.
-3. Ejecuta los siguientes comandos en la consola:
-	dotnet add package Selenium.WebDriver
-	dotnet add package Selenium.WebDriverManager
-
-## Ejecutar las pruebas
-1. Abre el panel Explorador de pruebas desde el menú Prueba > Ver > Explorador de pruebas.
-2. Haz clic en Ejecutar todas las pruebas o selecciona pruebas individuales.
-3. Visualiza los resultados directamente en el panel.
-
-## Instalación de Newtonsoft.Json
-
-Puedes instalar Newtonsoft.Json de dos maneras:
-
-### Opción 1: Usando NuGet Package Manager
-
-1. Abre tu proyecto en Visual Studio.
-2. Ve a **Tools > NuGet Package Manager > Manage NuGet Packages for Solution**.
-3. Busca `Newtonsoft.Json`.
-4. Selecciona tu proyecto y haz clic en **Install**.
-
-### Opción 2: Usando la consola de NuGet
-
-Abre la consola de NuGet (**Tools > NuGet Package Manager > Package Manager Console**) y ejecuta:
-
-```bash
-Install-Package Newtonsoft.Json
-
-
-## Se mantien la información agregada por el profesor
-
-# Proyecto de Pruebas Automatizadas - Automation Practice Demo
-
-Este proyecto contiene un esqueleto en .NET con NUnit y Selenium para practicar pruebas funcionales sobre el sitio [Automation Testing Practice](https://testautomationpractice.blogspot.com/).
-
-## Requisitos
-- .NET 8 SDK
+- .NET SDK (recomendado **.NET 9**)
 - Google Chrome
-- ChromeDriver (instalado automáticamente por NuGet)
+- ChromeDriver / Selenium Manager (según dependencias del proyecto)
 
-## Instalación
+## Clonar y cambiar a la rama
+
 ```bash
-git clone https://github.com/LFSoto/SOFT-740-Fundamentos.git
+git clone https://github.com/LFSoto/Pruebas-.NET.git
+cd Pruebas-.NET
+git checkout Semana5-GitActions
+```
+
+## Ejecutar las pruebas localmente (igual que en CI)
+
+```bash
 cd AutomationPracticeDemo.Tests
 dotnet restore
+dotnet build -c Release
+dotnet test -c Release --no-build \
+  --logger "trx;LogFileName=test-results.trx" \
+  --results-directory ../TestResults
+```
+
+Los resultados quedan en `./TestResults/` (en la raíz del repo).
+
+## Notas
+
+- Este pipeline está pensado como ejemplo para demostrar:
+  - ejecución automática de pruebas
+  - publicación de resultados
+  - creación automática de releases con un artefacto (código) para reportes a management.
