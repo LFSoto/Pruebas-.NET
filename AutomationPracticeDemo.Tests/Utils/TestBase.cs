@@ -18,8 +18,6 @@ namespace AutomationPracticeDemo.Tests.Base
         {
             var options = new ChromeOptions();
 
-            options.AddArgument("--start-maximized");
-
             // Configuración del navegador
             options.AddArgument("--start-maximized");       // Abrir maximizado
             options.AddArgument("--disable-notifications"); // Desactivar notificaciones

@@ -13,10 +13,22 @@ namespace AutomationPracticeDemo.Tests.Utils
             Directory.CreateDirectory(screenshotsDir);
 
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff");
+
+            // 🔑 Reemplazar caracteres inválidos - Evitas errores por caracteres inválidos.
+            foreach (var c in Path.GetInvalidFileNameChars())
+            {
+                fileName = fileName.Replace(c, '_');
+            }
+
+            // 🔑 Limitar longitud del nombre - Evitas errores por nombres demasiado largos.
+            if (fileName.Length > 50)
+                fileName = fileName.Substring(0, 50);
+
             var fullPath = Path.Combine(screenshotsDir, $"{timestamp}_{fileName}.png");
 
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             screenshot.SaveAsFile(fullPath);
+
         }
     }
 }
