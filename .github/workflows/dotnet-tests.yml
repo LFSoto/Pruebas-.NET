@@ -1,137 +1,37 @@
-name: .NET 9 Selenium Tests + Release
+name: .NET Tests
 
 on:
   push:
     branches:
-      - main
-      - Semana5-GitActions
+      - "**"
   pull_request:
-    branches:
-      - main
-      - develop
-      - Semana5-GitActions
-
-permissions:
-  contents: write
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET 9
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore
+        run: dotnet restore
 
-    - name: Build project
-      run: dotnet build --no-restore --configuration Release
+      - name: Build
+        run: dotnet build -c Release --no-restore
 
-    - name: Run NUnit tests (do not stop workflow)
-      id: test
-      continue-on-error: true
-      run: |
-        dotnet test --no-build --configuration Release \
-          --collect:"XPlat Code Coverage" \
-          --logger "trx;LogFileName=test-results.trx" \
-          --results-directory ./TestResults
+      - name: Run tests
+        run: dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage" --logger "trx;LogFileName=test-results.trx" --results-directory ./TestResults
 
-    - name: Upload test results (folder)
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: NUnit-Test-Results
-        path: ./TestResults
-
-    - name: Upload TRX (explicit)
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results-trx
-        path: ./TestResults/**/*.trx
-        if-no-files-found: warn
-
-    - name: Publish basic test summary
-      if: always()
-      shell: bash
-      run: |
-        echo "## Test Results" >> "$GITHUB_STEP_SUMMARY"
-        if ls ./TestResults/*.trx 1> /dev/null 2>&1; then
-          echo "- TRX generated: yes" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Download: see workflow artifacts (TestResults/TRX)" >> "$GITHUB_STEP_SUMMARY"
-        else
-          echo "- TRX generated: no" >> "$GITHUB_STEP_SUMMARY"
-        fi
-
-        if [ "${{ steps.test.outcome }}" = "success" ]; then
-          echo "- Status: ? Tests passed" >> "$GITHUB_STEP_SUMMARY"
-        else
-          echo "- Status: ? Tests failed" >> "$GITHUB_STEP_SUMMARY"
-        fi
-
-    # --- Release packaging (runs even if tests fail; only on push to main) ---
-    - name: Create source package for release
-      if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        zip -r automation-source.zip . -x ".git/*" ".github/*" "**/bin/*" "**/obj/*" "**/TestResults/*"
-
-    - name: Upload source package artifact
-      if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: actions/upload-artifact@v4
-      with:
-        name: Automation-Source
-        path: automation-source.zip
-
-    - name: Compute release tag (YYYY.MM.DD.vN)
-      if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-      id: rel
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        DATE_TAG=$(date -u +"%Y.%m.%d")
-        BASE="$DATE_TAG"
-
-        EXISTING=$(gh release list --limit 200 --json tagName --jq ".[].tagName" | grep -E "^${BASE}(\\.v[0-9]+)?$" || true)
-
-        if [ -z "$EXISTING" ]; then
-          TAG="$BASE"
-        else
-          MAX=0
-          while IFS= read -r t; do
-            if [[ "$t" == "$BASE" ]]; then
-              n=0
-            elif [[ "$t" =~ ^${BASE}\\.v([0-9]+)$ ]]; then
-              n=${BASH_REMATCH[1]}
-            else
-              n=0
-            fi
-            if [ "$n" -gt "$MAX" ]; then MAX=$n; fi
-          done <<< "$EXISTING"
-          TAG="${BASE}.v$((MAX+1))"
-        fi
-
-        echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-    - name: Create GitHub Release and upload package
-      if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        TAG="${{ steps.rel.outputs.tag }}"
-        NOTES="Automated release generated after test run on main.\n\nTests outcome: ${{ steps.test.outcome }}"
-
-        gh release create "$TAG" \
-          --title "Automation Release $TAG" \
-          --notes "$NOTES" \
-          automation-source.zip
-
-    # Final: keep workflow RED if tests failed
-    - name: Fail job if tests failed
-      if: always() && steps.test.outcome != 'success'
-      run: exit 1
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            TestResults/*.trx
+            TestResults/**/coverage.cobertura.xml

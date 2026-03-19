@@ -2,39 +2,49 @@
 
 public static class JsonHelper
 {
+    private static string? TryFindByCaseInsensitiveName(string directory, string fileName)
+    {
+        if (!Directory.Exists(directory))
+            return null;
+
+        var match = Directory
+            .EnumerateFiles(directory, "*", SearchOption.TopDirectoryOnly)
+            .FirstOrDefault(f => string.Equals(Path.GetFileName(f), fileName, StringComparison.OrdinalIgnoreCase));
+
+        return match;
+    }
+
     private static string ResolveJsonPath(string nameFile)
     {
         if (string.IsNullOrWhiteSpace(nameFile))
             throw new ArgumentException("El nombre del archivo no puede estar vacío.", nameof(nameFile));
 
-        // 1) Prefer a file copied to the test output folder (works best in CI)
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        var candidates = new List<string>
+
+        // candidate directories where Resource/DataTest may live
+        var candidateDirs = new List<string>
         {
-            Path.GetFullPath(Path.Combine(baseDir, "Resource", "DataTest", nameFile)),
-
-            // 2) Fallbacks when running from bin/Debug|Release
-            Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "Resource", "DataTest", nameFile)),
-            Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "Resource", "DataTest", nameFile)),
-
-            // 3) If the repo keeps Resource at solution root while tests are in a subfolder
-            Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "..", "Resource", "DataTest", nameFile)),
+            Path.GetFullPath(Path.Combine(baseDir, "Resource", "DataTest")),
+            Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "Resource", "DataTest")),
+            Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "Resource", "DataTest")),
+            Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "..", "Resource", "DataTest")),
+            Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Resource", "DataTest")),
+            Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "AutomationPracticeDemo.Tests", "Resource", "DataTest")),
         };
 
-        // Also try resolving from current working directory (GitHub Actions runs from repo root)
-        var cwd = Directory.GetCurrentDirectory();
-        candidates.Add(Path.GetFullPath(Path.Combine(cwd, "Resource", "DataTest", nameFile)));
-
-        // And from the test project folder if present
-        candidates.Add(Path.GetFullPath(Path.Combine(cwd, "AutomationPracticeDemo.Tests", "Resource", "DataTest", nameFile)));
-
-        foreach (var p in candidates.Distinct(StringComparer.OrdinalIgnoreCase))
+        foreach (var dir in candidateDirs.Distinct(StringComparer.OrdinalIgnoreCase))
         {
-            if (File.Exists(p))
-                return p;
+            var exact = Path.Combine(dir, nameFile);
+            if (File.Exists(exact))
+                return Path.GetFullPath(exact);
+
+            // Linux is case-sensitive; allow mismatched casing by searching the directory.
+            var ci = TryFindByCaseInsensitiveName(dir, nameFile);
+            if (ci != null)
+                return Path.GetFullPath(ci);
         }
 
-        throw new FileNotFoundException($"No se encontró el archivo JSON '{nameFile}'. Rutas probadas:\n- {string.Join("\n- ", candidates)}");
+        throw new FileNotFoundException($"No se encontró el archivo JSON '{nameFile}'. Directorios probados:\n- {string.Join("\n- ", candidateDirs)}");
     }
 
     /// <summary>
