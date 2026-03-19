@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AutomationPracticeDemo.Tests.Tests.Footer
 {
+    [TestFixture]
     public  class FooterTest : TestBase
     {
         private footerPage footer;
@@ -15,7 +16,7 @@ namespace AutomationPracticeDemo.Tests.Tests.Footer
         [SetUp]
         public void SetUp()
         {
-            footer = new footerPage(Driver);
+            footer = new footerPage(Driver, Wait);
         }
 
         [Test]

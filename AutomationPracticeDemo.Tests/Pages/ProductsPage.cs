@@ -20,15 +20,28 @@ namespace AutomationPracticeDemo.Tests.Pages
             _driver = driver;
             _wait = wait;
         }
-        private IWebElement productsLink => _driver.FindElement(By.CssSelector("a[href='/products']"));
 
-        private ReadOnlyCollection<IWebElement> addToCartButtons => _driver.FindElements(By.CssSelector(".features_items .add-to-cart"));  
+        private IWebElement productsLink =>
+            _wait.Until(ExpectedConditions.ElementToBeClickable(
+                By.CssSelector("a[href='/products']")));
 
-        private IWebElement continueShoppingButton => _driver.FindElement(By.CssSelector("button.close-modal"));
+        private IWebElement continueShoppingButton =>
+            _wait.Until(ExpectedConditions.ElementToBeClickable(
+                By.CssSelector("button.close-modal")));
 
-        private IWebElement ViewCartLink => _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[href='/view_cart']")));
+        private IWebElement ViewCartLink =>
+            _wait.Until(ExpectedConditions.ElementToBeClickable(
+                By.CssSelector("a[href='/view_cart']")));
 
+        private ReadOnlyCollection<IWebElement> addToCartButtons => _driver.FindElements(By.CssSelector(".features_items .add-to-cart"));
         private bool IsModalClosed => _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.Id("cartModal")));
+
+        //private IWebElement productsLink => _driver.FindElement(By.CssSelector("a[href='/products']"));
+
+        //private IWebElement continueShoppingButton => _driver.FindElement(By.CssSelector("button.close-modal"));
+
+        //private IWebElement ViewCartLink => _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[href='/view_cart']")));
+
 
         //Método para hacer clic en el enlace de productos
         public void ClickProductsLink()

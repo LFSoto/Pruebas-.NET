@@ -16,20 +16,18 @@ namespace AutomationPracticeDemo.Tests.Utils
 
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
-
             options.AddArgument("--disable-notifications");
             options.AddArgument("--disable-infobars");
             options.AddArgument("--headless=new");
             options.AddArgument("--window-size=1920,1080");
 
             Driver = new ChromeDriver(options);
+
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
-            
-            Driver.Navigate().GoToUrl("https://automationexercise.com/");
 
             Driver.Manage().Cookies.DeleteAllCookies();
 
-            Driver.Navigate().Refresh();
+            Driver.Navigate().GoToUrl("https://automationexercise.com/");
 
         }
 

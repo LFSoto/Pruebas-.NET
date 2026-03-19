@@ -9,9 +9,12 @@ namespace AutomationPracticeDemo.Tests.Pages
 
         private readonly IWebDriver _driver;
 
-        public ContactUsPage(IWebDriver driver)
+        private readonly WebDriverWait _wait;
+
+        public ContactUsPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
+            _wait = wait;
         }
 
         // Variables para los elementos de la página de contacto
@@ -20,8 +23,8 @@ namespace AutomationPracticeDemo.Tests.Pages
         private IWebElement subjectInput => _driver.FindElement(By.CssSelector("input[data-qa='subject']"));
         private IWebElement messageInput => _driver.FindElement(By.CssSelector("textarea[data-qa='message']"));
         private IWebElement submitButton => _driver.FindElement(By.CssSelector("input[data-qa='submit-button']"));
-
-
+        private IWebElement successMessage => _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@class='status alert alert-success']")));
+        private IWebElement fileInput => _wait.Until(ExpectedConditions.ElementExists(By.CssSelector("input[type='file']")));
 
         // Método para verificar que está en la página de contacto y devuelve el mensaje "Contact Us"
         public string MessageContactUs()
@@ -39,8 +42,10 @@ namespace AutomationPracticeDemo.Tests.Pages
             subjectInput.SendKeys(subject);
             messageInput.SendKeys(message);
 
-            string filePath = @"C:\Users\kenne\source\repos\LFSoto\Pruebas-.NET\AutomationPracticeDemo.Tests\Utils\semana.pdf"; // Reemplaza con la ruta real del archivo que deseas subir
-            var fileInput = _driver.FindElement(By.CssSelector("input[type='file']"));
+            //string filePath = @"C:\Users\kenne\source\repos\LFSoto\Pruebas-.NET\AutomationPracticeDemo.Tests\Utils\semana.pdf"; // Reemplaza con la ruta real del archivo que deseas subir
+            //var fileInput = _driver.FindElement(By.CssSelector("input[type='file']"));
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utils", "semana.pdf");
+            
             fileInput.SendKeys(filePath);
         }
 
@@ -53,8 +58,8 @@ namespace AutomationPracticeDemo.Tests.Pages
         //Método para validar alerta
         public string GetAlertMessage()
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            var alert = wait.Until(ExpectedConditions.AlertIsPresent());
+            //var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            var alert = _wait.Until(ExpectedConditions.AlertIsPresent());
             string alertText = alert.Text;
             alert.Accept(); // Acepta la alerta
             return alertText;
@@ -63,8 +68,8 @@ namespace AutomationPracticeDemo.Tests.Pages
         //Método para validar que el mensaje de éxito se muestra después de enviar el formulario de contacto
         public string GetSuccessMessage()
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            var successMessage = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@class='status alert alert-success']")));
+            //var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            //var successMessage = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@class='status alert alert-success']")));
             return successMessage.Text;
         }
     }

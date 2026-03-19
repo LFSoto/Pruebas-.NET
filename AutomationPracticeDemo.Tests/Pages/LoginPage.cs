@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,10 @@ namespace AutomationPracticeDemo.Tests.Pages
             _driver = driver;
             _wait = wait;
         }
-        private IWebElement emailLogin => _driver.FindElement(By.CssSelector("input[data-qa='login-email']"));
-        private IWebElement passwordLogin => _driver.FindElement(By.CssSelector("input[data-qa='login-password']"));
-        private IWebElement loginButton => _driver.FindElement(By.CssSelector("button[data-qa='login-button']"));
+        private IWebElement emailLogin => _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input[data-qa='login-email']")));
+        private IWebElement passwordLogin => _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input[data-qa='login-password']")));
+        private IWebElement loginButton => _wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("button[data-qa='login-button']")));
+        private IWebElement message => _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//p[.='Your email or password is incorrect!']")));
 
         public void InputLogin(string email, string password)
         {
@@ -33,10 +35,11 @@ namespace AutomationPracticeDemo.Tests.Pages
         }
         public string MessageInvalidLogin()
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            var message = _driver.FindElement(By.XPath("//p[.='Your email or password is incorrect!']"));
+            //var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            //var message = _driver.FindElement(By.XPath("//p[.='Your email or password is incorrect!']"));
             return message.Text;
         }
+
 
     }
 }

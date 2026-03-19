@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,15 @@ namespace AutomationPracticeDemo.Tests.Pages.Components
     {
         private readonly IWebDriver _driver;
 
-        public menuPage(IWebDriver driver)
+        private readonly WebDriverWait _wait;
+
+        public menuPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
+            _wait = wait;
         }
         private IWebElement signupLogin => _driver.FindElement(By.CssSelector("a[href='/login']"));
-        private By loggedIn = By.XPath("//a[contains(., 'Logged in as')]");
-
+        private IWebElement LoggedIn => _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[contains(., 'Logged in as')]")));
         private IWebElement contactUs => _driver.FindElement(By.CssSelector("a[href='/contact_us']"));
 
         public void ClickSignupLogin()
@@ -32,12 +35,12 @@ namespace AutomationPracticeDemo.Tests.Pages.Components
             try
             {
                 // 1. Definimos una espera de 10 segundos
-                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+                //var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
                 // 2. Esperamos hasta que el elemento sea visible
                 // Esto reemplaza al 'if (loggedIn.Displayed)'
-                var element = wait.Until(d => d.FindElement(loggedIn));
-                return element.Text;
+                //var element = wait.Until(d => d.FindElement(loggedIn));
+                return LoggedIn.Text;
             }
             catch (Exception)
             {
@@ -50,7 +53,5 @@ namespace AutomationPracticeDemo.Tests.Pages.Components
         {
             contactUs.Click();
         }
-
-
     }
 }

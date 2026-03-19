@@ -10,19 +10,20 @@ using System.Threading.Tasks;
 
 namespace AutomationPracticeDemo.Tests.Tests.Products
 {
+    [TestFixture]
     public  class ProductsTest : TestBase
     {
 
-        private ProductsPage products;
-        private CartPage cartPage;
+        private ProductsPage _products;
+        private CartPage _cartPage;
 
         private const int ProductosAgregar = 2;
 
         [SetUp]
-        public void SetUp()
+        public void SetUpPages()
         {
-            products = new ProductsPage(Driver, Wait);
-            cartPage = new CartPage(Driver, Wait);
+            _products = new ProductsPage(Driver, Wait);
+            _cartPage = new CartPage(Driver, Wait);
         }
 
 
@@ -30,25 +31,25 @@ namespace AutomationPracticeDemo.Tests.Tests.Products
         public void AgregarProductosAlCarritoYValidarTotal()
         {
             // 1. Navegar a Products
-            products.ClickProductsLink();
+            _products.ClickProductsLink();
             //LimpiarAnuncios();
 
             // 2. Agregar productos aleatorios
-            products.AddRandomProductsToCart(ProductosAgregar);
+            _products.AddRandomProductsToCart(ProductosAgregar);
 
             // 3. Ir al carrito
-            products.GoToCart();
+            _products.GoToCart();
             //LimpiarAnuncios();
 
             // 4. Validar cantidad de productos
-            cartPage.ValidateProductCount(ProductosAgregar);
+            _cartPage.ValidateProductCount(ProductosAgregar);
 
             // 5. Calcular y validar total
-            double total = cartPage.CalculateTotalFromRows();
-            cartPage.ValidateTotalGreaterThanZero(total);
+            double total = _cartPage.CalculateTotalFromRows();
+            _cartPage.ValidateTotalGreaterThanZero(total);
 
             // 6. Scroll + Screenshot
-            cartPage.ScrollToFirstRow();
+            _cartPage.ScrollToFirstRow();
             ScreenshotHelper.TakeScreenshot(Driver, "carrito_final_validado.png");
         }
     }

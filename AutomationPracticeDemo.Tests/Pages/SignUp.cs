@@ -25,8 +25,6 @@ namespace AutomationPracticeDemo.Tests.Pages
         private IWebElement emailSignupInput => _driver.FindElement(By.CssSelector("input[data-qa='signup-email']"));
         private IWebElement signupButton => _driver.FindElement(By.CssSelector("button[data-qa='signup-button']"));
 
-
-
         //Variables para el signup
         private IWebElement titleSignup => _driver.FindElement(By.Id("id_gender1"));
         private IWebElement passwordSignup => _driver.FindElement(By.Id("password"));

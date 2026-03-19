@@ -11,7 +11,7 @@ namespace AutomationPracticeDemo.Tests.Tests.Login
         [Test, Category("Login"), TestCaseSource(typeof(LoginDataSource), nameof(LoginDataSource.UsersIsValid))]
         public void LoginWithValidUser(string email, string password)
         {
-            var menuPage = new menuPage(Driver);
+            var menuPage = new menuPage(Driver, Wait);
             var loginPage = new LoginPage(Driver, Wait);
 
             // Navegación a la página de registro
@@ -29,7 +29,7 @@ namespace AutomationPracticeDemo.Tests.Tests.Login
 
         public void LoginWithInvalidUser(string email, string password)
         {
-            var menuPage = new menuPage(Driver);
+            var menuPage = new menuPage(Driver, Wait);
             var loginPage = new LoginPage(Driver, Wait);
             // Navegación a la página de registro
             menuPage.ClickSignupLogin();

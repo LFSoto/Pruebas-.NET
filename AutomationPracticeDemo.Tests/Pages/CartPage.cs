@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,22 +15,32 @@ namespace AutomationPracticeDemo.Tests.Pages
     private readonly IWebDriver _driver;
     private readonly WebDriverWait _wait;
 
-    // --- IWebElement Properties ---
-    private ReadOnlyCollection<IWebElement> CartRows =>
-        _driver.FindElements(By.CssSelector("table#cart_info_table tbody tr"));
-
-    private IWebElement RowTotalCell(IWebElement row) =>
-        row.FindElement(By.ClassName("cart_total"));
-
     public CartPage(IWebDriver driver, WebDriverWait wait)
     {
-        _driver = driver;
-        _wait = wait;
+            _driver = driver;
+            _wait = wait;
     }
 
-    // --- Actions ---
+        // --- IWebElement Properties ---
+        //private ReadOnlyCollection<IWebElement> CartRows => 
+        //_driver.FindElements(By.CssSelector("table#cart_info_table tbody tr"));
 
-    public ReadOnlyCollection<IWebElement> GetCartRows() => CartRows;
+        //private IWebElement RowTotalCell(IWebElement row) =>
+        //    row.FindElement(By.ClassName("cart_total"));
+
+        private ReadOnlyCollection<IWebElement> CartRows =>
+                _wait.Until(d => {
+                    var rows = d.FindElements(By.CssSelector("table#cart_info_table tbody tr"));
+                    return rows.Count > 0 ? rows : null;
+                });
+        private IWebElement RowTotalCell(IWebElement row) =>
+            _wait.Until(ExpectedConditions.ElementIsVisible(
+                By.ClassName("cart_total")));
+
+
+        // --- Actions ---
+
+        public ReadOnlyCollection<IWebElement> GetCartRows() => CartRows;
 
     public void ValidateProductCount(int expectedCount)
     {
