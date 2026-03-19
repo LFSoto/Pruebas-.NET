@@ -29,6 +29,9 @@
     <Folder Include="ArchivoAdjunto\" />
   </ItemGroup>
   <ItemGroup>
-   <None Include="Resource\DataTest\*.json" CopyToOutputDirectory="Always" />
+    <!-- Test data needed at runtime (Linux runner is case-sensitive) -->
+    <None Include="Resource\DataTest\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
