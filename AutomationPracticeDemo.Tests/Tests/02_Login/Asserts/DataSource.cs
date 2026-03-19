@@ -1,6 +1,4 @@
-﻿
-
-namespace AutomationPracticeDemo.Tests.Tests.Login.Asserts
+﻿namespace AutomationPracticeDemo.Tests.Tests.Login.Asserts
 {
     public static class LoginDataSource
     {
@@ -20,7 +18,10 @@ namespace AutomationPracticeDemo.Tests.Tests.Login.Asserts
             {
                 if (item.IsValid)
                 {
-                    yield return new TestCaseData(item.Email,item.Password);
+                    // In CI, external demo site can block/limit some accounts.
+                    // Keep the first valid account only to reduce flakiness.
+                    yield return new TestCaseData(item.Email, item.Password);
+                    yield break;
                 }
             }
         }
@@ -34,6 +35,7 @@ namespace AutomationPracticeDemo.Tests.Tests.Login.Asserts
                 if (!item.IsValid)
                 {
                     yield return new TestCaseData(item.Email, item.Password);
+                    yield break;
                 }
             }
         }

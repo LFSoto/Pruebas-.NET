@@ -6,9 +6,12 @@ namespace AutomationPracticeDemo.Tests.Pages
     public class SignUpPage
     {
         private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
+
         public SignUpPage(IWebDriver driver)
         {
             _driver = driver;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
 
         // Declaración de los elementos de la página
@@ -42,6 +45,25 @@ namespace AutomationPracticeDemo.Tests.Pages
         private IList<IWebElement> accountCreatedMessage => _driver.FindElements(By.CssSelector("#form > div > div > div > p"));
         private IWebElement continueButton => _driver.FindElement(By.CssSelector("a[data-qa=\"continue-button\"]"));
 
+        private static By EnterAccountInfoTitleBy => By.CssSelector("div.login-form >h2");
+
+        private IWebElement WaitVisible(By by) => _wait.Until(d =>
+        {
+            try
+            {
+                var el = d.FindElement(by);
+                return el.Displayed ? el : null;
+            }
+            catch (NoSuchElementException)
+            {
+                return null;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return null;
+            }
+        });
+
         // Métodos para interactuar con los elementos del SignUp
         public string GetTitleNewUserSignup()
         {
@@ -64,17 +86,22 @@ namespace AutomationPracticeDemo.Tests.Pages
         //Metodo para obetener el titulo de Enter Account Information
         public string GetTitleEnterAccountInfo()
         {
-            //Uso de WebDriverWait para esperar a que el elemento sea visible (Espera explicita)
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            try
+            // Retry a few times in case the DOM is re-rendered.
+            for (var attempt = 0; attempt < 3; attempt++)
             {
-                wait.Until(driver => enterAccountInfoTitle.Displayed);
-                return enterAccountInfoTitle.Text;
+                try
+                {
+                    var el = WaitVisible(EnterAccountInfoTitleBy);
+                    return el.Text;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    Thread.Sleep(250);
+                }
             }
-            catch (WebDriverTimeoutException)
-            {
-                throw new NoSuchElementException("El elemento del titulo (Enter Account Information) no está visible en la página.");
-            }
+
+            // Final attempt (will throw if not present)
+            return WaitVisible(EnterAccountInfoTitleBy).Text;
         }
 
         //Metodo para llenar el formulario de Account Information
@@ -145,11 +172,9 @@ namespace AutomationPracticeDemo.Tests.Pages
         //Metodo para obtener el título y mensaje de cuenta creada
         public string GetAccountCreatedTitle()
         {
-            if (accountCreatedTitle.Displayed == false)
-            {
-                throw new NoSuchElementException("El elemento no está visible en la página.");
-            }
-            return accountCreatedTitle.Text;
+            // Wait for the account-created title to appear after submit.
+            var el = WaitVisible(By.CssSelector("h2[data-qa=\"account-created\"] b"));
+            return el.Text;
         }
 
         //Metodo para obtener el mensaje de cuenta creada

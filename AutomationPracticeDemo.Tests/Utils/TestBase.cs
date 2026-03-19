@@ -14,16 +14,25 @@ namespace AutomationPracticeDemo.Tests.Utils
             var options = new ChromeOptions();
 
             // CI-friendly defaults (GitHub Actions uses Linux containers/VMs)
-            // Headless is required in most CI environments.
-            options.AddArgument("--start-maximized");
+            options.AddArgument("--headless=new");
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("--window-size=1920,1080");
             options.AddArgument("--disable-notifications");
             options.AddArgument("--disable-infobars");
-            options.AddArgument("--headless=new");
-            options.AddArgument("--window-size=1920,1080");
+
+            // Optional for local runs; harmless in CI
+            options.AddArgument("--start-maximized");
 
             Driver = new ChromeDriver(options);
 
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(60);
+            Driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(30);
+
+            // Prefer explicit waits in page objects to avoid flaky implicit-wait interactions
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.Zero;
+
             Driver.Navigate().GoToUrl("https://automationexercise.com/signup");
         }
 
