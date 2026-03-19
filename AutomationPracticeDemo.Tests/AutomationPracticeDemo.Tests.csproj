@@ -21,17 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Resource\DataTest\**\*.json" LinkBase="Resource\DataTest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include=".github\workflows\" />
+    <!-- Test data needed at runtime (Linux runner is case-sensitive) -->
+    <None Include="Resource\DataTest\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

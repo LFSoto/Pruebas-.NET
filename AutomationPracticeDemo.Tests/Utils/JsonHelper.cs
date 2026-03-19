@@ -20,16 +20,22 @@ public static class JsonHelper
             throw new ArgumentException("El nombre del archivo no puede estar vacío.", nameof(nameFile));
 
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        var cwd = Directory.GetCurrentDirectory();
 
         // candidate directories where Resource/DataTest may live
         var candidateDirs = new List<string>
         {
             Path.GetFullPath(Path.Combine(baseDir, "Resource", "DataTest")),
             Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "Resource", "DataTest")),
+
+            // When Resource is under the test project and we are running from bin/<cfg>/<tfm>
             Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "Resource", "DataTest")),
-            Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "..", "Resource", "DataTest")),
-            Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Resource", "DataTest")),
-            Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "AutomationPracticeDemo.Tests", "Resource", "DataTest")),
+
+            // From repository root (if tests are executed from repo root)
+            Path.GetFullPath(Path.Combine(cwd, "Resource", "DataTest")),
+
+            // From repository root where Resource lives under the test project
+            Path.GetFullPath(Path.Combine(cwd, "AutomationPracticeDemo.Tests", "Resource", "DataTest")),
         };
 
         foreach (var dir in candidateDirs.Distinct(StringComparer.OrdinalIgnoreCase))
