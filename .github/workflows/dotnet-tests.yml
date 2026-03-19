@@ -2,9 +2,9 @@ name: .NET 9 Selenium Tests + Release
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - "**"
   pull_request:
-    branches: [ main, develop ]
 
 permissions:
   contents: write
