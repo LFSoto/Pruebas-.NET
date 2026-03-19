@@ -15,13 +15,11 @@ namespace AutomationPracticeDemo.Tests.Utils
 
             // CI-friendly defaults (GitHub Actions uses Linux containers/VMs)
             // Headless is required in most CI environments.
-            options.AddArgument("--headless=new");
-            options.AddArgument("--no-sandbox");
-            options.AddArgument("--disable-dev-shm-usage");
-            options.AddArgument("--window-size=1920,1080");
-
-            // Keep existing behavior for local runs
             options.AddArgument("--start-maximized");
+            options.AddArgument("--disable-notifications");
+            options.AddArgument("--disable-infobars");
+            options.AddArgument("--headless=new");
+            options.AddArgument("--window-size=1920,1080");
 
             Driver = new ChromeDriver(options);
 
