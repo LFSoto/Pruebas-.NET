@@ -24,7 +24,7 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 	<ItemGroup>
-		<None Update="Resource\DataTest\DataUser.json">
+		<None Update="Resource/DataTest/DataUser.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
