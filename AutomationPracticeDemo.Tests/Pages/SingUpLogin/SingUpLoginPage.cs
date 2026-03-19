@@ -28,7 +28,7 @@ public class SingUpLoginPage : BasePage
         TypeText(passwordInputLocator, password);
         MouseHover(loginButtonLocator);
         // Click en el botón de Login
-        ClickElement(loginButtonLocator);
+        ClickByJs(loginButtonLocator);
     }
 
     public SignUpPage SingUpNuevoUsuario(string name, string email)
