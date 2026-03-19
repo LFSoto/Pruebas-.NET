@@ -36,11 +36,10 @@ jobs:
             TestResults/*.trx
             TestResults/**/coverage.cobertura.xml
 
-      - name: Upload Release build outputs
+      - name: Upload Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: release-build
+          name: test-reports
           path: |
-            **/bin/Release/**
-            **/obj/Release/**
+            **/Reportes/**
