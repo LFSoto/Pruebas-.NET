@@ -48,12 +48,12 @@ namespace AutomationPracticeDemo.Tests.Pages
             MessageInput.SendKeys(message);
             
         }
-        public void UploadFile()
+        public void UploadFile(string filePath)
         {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(4));
+            wait.Until(driver => UploadFileInput.Displayed);
+            UploadFileInput.SendKeys(filePath);
           
-            var rutaFolder = Path.GetFullPath(@"..\..\..\adjunto\prueba.png");
-            var archivo = UploadFileInput;
-            archivo.SendKeys(rutaFolder);
         }
 
         public void SubmitForm()
