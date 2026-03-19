@@ -46,11 +46,41 @@ namespace AutomationPracticeDemo.Tests.Pages
             }
         }
 
+        /// <summary>
+        /// Envía el formulario Contact Us y espera el mensaje de éxito.
+        /// Si la espera falla por timeout, intenta cerrar un posible alert del navegador
+        /// (accept/dismiss) que esté bloqueando la página y reintenta una espera corta
+        /// para detectar el mensaje de éxito antes de propagar el error.
+        /// </summary>
         public void Submit()
         {
             var submitBtn = _driver.FindElements(By.XPath("//input[@type='submit'] | //button[contains(., 'Submit')] | //button[contains(., 'Submit')]")).FirstOrDefault();
             if (submitBtn != null) { try { submitBtn.Click(); } catch { ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", submitBtn); } }
-            _wait.Until(d => d.FindElements(By.XPath("//*[contains(., 'Success! Your details have been submitted successfully') or contains(., 'Success!')]")).Count > 0);
+
+            // Espera robusta: intenta detectar el mensaje de éxito. Si aparece un alert lo cierra y reintenta la espera.
+            try
+            {
+                _wait.Until(d => d.FindElements(By.XPath("//*[contains(., 'Success! Your details have been submitted successfully') or contains(., 'Success!')]")).Count > 0);
+            }
+            catch (WebDriverTimeoutException)
+            {
+                // Si hubo timeout, puede deberse a un alert que bloqueó la interacción; intentar dismiss y esperar de nuevo corto tiempo
+                try
+                {
+                    var alert = _driver.SwitchTo().Alert();
+                    try { alert.Accept(); } catch { try { alert.Dismiss(); } catch { } }
+                    TestContext.WriteLine("Dismissed alert during Contact submit.");
+
+                    // reintentar una espera corta
+                    var shortWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                    shortWait.Until(d => d.FindElements(By.XPath("//*[contains(., 'Success! Your details have been submitted successfully') or contains(., 'Success!')]")).Count > 0);
+                }
+                catch (NoAlertPresentException)
+                {
+                    // No alert; simplemente relanzar la excepción original para que el test falle con el timeout
+                    throw;
+                }
+            }
         }
 
         public string GetSuccessMessage()

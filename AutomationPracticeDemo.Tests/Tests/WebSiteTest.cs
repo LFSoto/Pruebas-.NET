@@ -68,7 +68,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 
         /// <summary>
         /// Login con usuario existente (credenciales fijas actualmente).
-        /// Acciones: navega a /login, realiza el login y toma captura; espera 30s y luego intenta logout.
+        /// Acciones: navega a /login, realiza el login y toma captura; espera hasta encontrar el enlace de logout y luego intenta logout.
         /// Validación: si el login falla, el método Login lanzará excepción por timeout.
         /// </summary>
         [Test, Order(3)]
@@ -84,9 +84,13 @@ namespace AutomationPracticeDemo.Tests.Tests
 
             ScreenshotHelper.TakeScreenshot(Driver, "automationexercise_login_existing.png");
 
-            // wait 30s then logout
-            TestContext.WriteLine("Esperando 30 segundos antes de hacer logout...");
-            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(30));
+            // Espera hasta que aparezca el enlace Cerrar sesión 
+            try
+            {
+                var waitLogout = new WebDriverWait(Driver, TimeSpan.FromSeconds(30));
+                waitLogout.Until(d => d.FindElements(By.XPath("//a[contains(., 'Logout')]")).Count > 0);
+            }
+            catch { /* timeout - proceed to attempt logout anyway */ }
 
             try
             {
@@ -171,7 +175,9 @@ namespace AutomationPracticeDemo.Tests.Tests
             var footer = new FooterComponent(Driver, TimeSpan.FromSeconds(20));
             Driver.Navigate().GoToUrl("https://automationexercise.com/");
             ((IJavaScriptExecutor)Driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
-            System.Threading.Thread.Sleep(500);
+            // Añade espera explícita para la entrada del boletín informativo.
+            var shortWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+            shortWait.Until(d => footer.FindNewsletterInput() != null);
 
             footer.Subscribe(data.email);
 

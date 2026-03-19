@@ -27,4 +27,8 @@
     <Folder Include="Reportes\Images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\dotnet-tests.yml" />
+  </ItemGroup>
+
 </Project>
