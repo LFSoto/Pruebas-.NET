@@ -55,7 +55,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 
             var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
             var errorMessage = wait.Until(d => d.FindElement(
-     By.XPath("//*[contains(text(),'Your email or password is incorrect!')]")
+             By.XPath("//*[contains(text(),'Your email or password is incorrect!')]")
  ));
 
 

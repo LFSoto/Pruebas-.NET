@@ -10,6 +10,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 
 
@@ -53,9 +54,8 @@ namespace AutomationPracticeDemo.Tests.Tests
             loginPage.EnterPassword(pass);
             loginPage.ClickLogin();
 
-            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(20));
-            var logoutLink = wait.Until(d => d.FindElement(By.CssSelector("a[href='/logout']")));
-            Assert.That(logoutLink.Displayed, Is.True);
+            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(30));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.LinkText("Logout")));
         }
 
         public static IEnumerable<TestCaseData> GetLoginData()

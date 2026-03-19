@@ -1,0 +1,35 @@
+﻿name: CI Pipeline
+
+on:
+  push:
+    branches: [ "SilviaMunoz-GitSeleniumAction" ]
+  pull_request:
+    branches: [ "SilviaMunoz-GitSeleniumAction" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restaurar dependencias
+        run: dotnet restore
+
+      - name: Compilar proyecto
+        run: dotnet build --configuration Release
+
+      - name: Ejecutar pruebas
+        run: dotnet test --configuration Release
+
+      - name: Publicar artefactos versionados
+        run: |
+          $version = "${{ github.run_number }}-${{ github.sha }}"
+          echo "Build version: $version"
+          dotnet publish -c Release -o ./publish /p:Version=$version
