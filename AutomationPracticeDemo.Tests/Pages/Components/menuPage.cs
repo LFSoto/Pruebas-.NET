@@ -15,10 +15,10 @@ namespace AutomationPracticeDemo.Tests.Pages.Components
 
         private readonly WebDriverWait _wait;
 
-        public menuPage(IWebDriver driver, WebDriverWait wait)
+        public menuPage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = wait;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
         private IWebElement signupLogin => _driver.FindElement(By.CssSelector("a[href='/login']"));
         private IWebElement LoggedIn => _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[contains(., 'Logged in as')]")));

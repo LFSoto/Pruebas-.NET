@@ -22,8 +22,8 @@ namespace AutomationPracticeDemo.Tests.Tests.Products
         [SetUp]
         public void SetUpPages()
         {
-            _products = new ProductsPage(Driver, Wait);
-            _cartPage = new CartPage(Driver, Wait);
+            _products = new ProductsPage(Driver);
+            _cartPage = new CartPage(Driver);
         }
 
 

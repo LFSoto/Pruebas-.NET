@@ -13,10 +13,10 @@ namespace AutomationPracticeDemo.Tests.Pages
     {
         private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
-        public LoginPage(IWebDriver driver, WebDriverWait wait)
+        public LoginPage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = wait;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
         private IWebElement emailLogin => _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input[data-qa='login-email']")));
         private IWebElement passwordLogin => _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input[data-qa='login-password']")));

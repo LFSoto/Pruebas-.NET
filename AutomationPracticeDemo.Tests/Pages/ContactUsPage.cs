@@ -11,10 +11,10 @@ namespace AutomationPracticeDemo.Tests.Pages
 
         private readonly WebDriverWait _wait;
 
-        public ContactUsPage(IWebDriver driver, WebDriverWait wait)
+        public ContactUsPage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = wait;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
 
         // Variables para los elementos de la página de contacto

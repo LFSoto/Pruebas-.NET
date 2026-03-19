@@ -15,10 +15,10 @@ namespace AutomationPracticeDemo.Tests.Pages
 
         private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
-        public ProductsPage(IWebDriver driver, WebDriverWait wait)
+        public ProductsPage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = wait;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
 
         private IWebElement productsLink =>

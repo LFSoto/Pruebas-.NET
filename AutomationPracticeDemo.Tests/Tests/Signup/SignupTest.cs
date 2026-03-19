@@ -23,8 +23,8 @@ namespace AutomationPracticeDemo.Tests.Tests.Signup
         [Test]
         public void SignupNewUser()
         {
-            var menuPage = new menuPage(Driver, Wait);
-            var signUp = new SignUp(Driver, Wait);
+            var menuPage = new menuPage(Driver);
+            var signUp = new SignUp(Driver);
 
             // Navegación a la página de registro
             menuPage.ClickSignupLogin();
@@ -44,8 +44,8 @@ namespace AutomationPracticeDemo.Tests.Tests.Signup
 
         public void SignupInformation()
         {
-            var menuPage = new menuPage(Driver, Wait);
-            var signUp = new SignUp(Driver, Wait);
+            var menuPage = new menuPage(Driver);
+            var signUp = new SignUp(Driver);
 
             // Navegación a la página de registro
             menuPage.ClickSignupLogin();

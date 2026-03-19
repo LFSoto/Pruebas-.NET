@@ -15,11 +15,11 @@ namespace AutomationPracticeDemo.Tests.Pages
     private readonly IWebDriver _driver;
     private readonly WebDriverWait _wait;
 
-    public CartPage(IWebDriver driver, WebDriverWait wait)
+    public CartPage(IWebDriver driver)
     {
             _driver = driver;
-            _wait = wait;
-    }
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+        }
 
         // --- IWebElement Properties ---
         //private ReadOnlyCollection<IWebElement> CartRows => 
