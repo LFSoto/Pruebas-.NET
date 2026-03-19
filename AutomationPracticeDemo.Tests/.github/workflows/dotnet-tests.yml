@@ -1,0 +1,9 @@
+# ...existing code...
+      - name: Run tests
+        id: run_tests
+        run: dotnet test -c Release --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
+
+      - name: Fail JOB IF TEST FAIL
+        if: steps.run_tests.outcome == 'failure'
+        run: exit 1
+# ...existing code...
