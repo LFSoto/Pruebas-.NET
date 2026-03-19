@@ -1,8 +1,8 @@
-﻿using AutomationPracticeDemo.Tests.Utils;
+﻿using AutomationPracticeDemoTests.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace AutomationPracticeDemo.Tests;
+namespace AutomationPracticeDemoTests;
 
 public class BaseTest
 {
@@ -52,7 +52,7 @@ public class BaseTest
         {
             var screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
             var fileName = $"{TestContext.CurrentContext.Test.Name}_{DateTime.Now:yyyyMMdd_HHmmss}.png";
-            ScreenshotHelper.TakeScreenshot(Driver, fileName);
+            ScreenshotHelper.TakeScreenshot(Driver, fileName, "Failures");
         }
     }
 }

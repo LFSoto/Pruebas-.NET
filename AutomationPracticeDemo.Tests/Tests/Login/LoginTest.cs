@@ -1,12 +1,14 @@
-﻿
-using AutomationPracticeDemo.Test.Tests.Login.Asserts;
-using AutomationPracticeDemo.Tests.Pages;
-using AutomationPracticeDemo.Tests.Utils;
+﻿using AutomationPracticeDemoTest.Tests.Login.Asserts;
+using AutomationPracticeDemoTests.Pages;
+using AutomationPracticeDemoTests.Utils;
 
-namespace AutomationPracticeDemo.Tests.Tests.Login;
+namespace AutomationPracticeDemoTests.Tests.Login;
 
+[TestFixture]
 public class LoginTest : BaseTest
 {
+    private string folderName = "LoginTest";
+
     [Test, Category("Login"), TestCaseSource(typeof(LoginDataSource), nameof(LoginDataSource.UsersIsValid))]
     public void LoginWithValidUser(LoginData data)
     {
@@ -18,7 +20,7 @@ public class LoginTest : BaseTest
         singUpLoginPage.LoginUsuario(data.Email, data.Password);
         // Verificar que el usuario logueado es el esperado
         Assert.That(homePage.TopMenu.GetLoggedUser(), Does.Contain(data.NombreUsuario), "El usuario logueado no es el esperado.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"LoginWithValidUserTest_{data.NombreUsuario}".Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"LoginWithValidUserTest_{data.NombreUsuario}".Trim(), folderName);
     }
 
 
@@ -34,6 +36,6 @@ public class LoginTest : BaseTest
         // Verificar que el usuario logueado es el esperado
         Assert.That(singUpLoginPage.GetInvalidLoginErrorMessage(), Is.EqualTo("Your email or password is incorrect!"),
             "El mensaje de error mostrado no es el esperado.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"LoginWithNotValidUserTest_{data.NombreUsuario}".Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"LoginWithNotValidUserTest_{data.NombreUsuario}".Trim(), folderName);
     }
 }

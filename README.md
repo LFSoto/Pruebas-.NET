@@ -16,7 +16,7 @@ cd Pruebas-.NET
 git checkout ErickMeneses-SeleniumPOM-DDT
 
 ## Para compilar y ejecutar las pruebas
-cd AutomationPracticeDemo.Tests
+cd AutomationPracticeDemoTests
 dotnet restore
 dotnet build
 dotnet test

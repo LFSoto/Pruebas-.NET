@@ -1,8 +1,7 @@
-﻿
-using AutomationPracticeDemo.Tests.Pages;
+﻿using AutomationPracticeDemoTests.Pages;
 using OpenQA.Selenium;
 
-namespace AutomationPracticeDemo.Test.Pages;
+namespace AutomationPracticeDemoTest.Pages;
 
 public class AccountCreatedPage : BasePage
 {

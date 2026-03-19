@@ -1,6 +1,6 @@
-﻿using AutomationPracticeDemo.Test.Utils;
+﻿using AutomationPracticeDemoTest.Utils;
 
-namespace AutomationPracticeDemo.Test.Tests.SingUp.Assets;
+namespace AutomationPracticeDemoTest.Tests.SingUp.Assets;
 
 public class SingUpDataSource
 {

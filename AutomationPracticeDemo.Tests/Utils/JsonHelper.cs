@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AutomationPracticeDemo.Test.Utils;
+namespace AutomationPracticeDemoTest.Utils;
 
 public static class JsonHelper
 {
@@ -12,7 +12,8 @@ public static class JsonHelper
     /// <returns>Lista de objetos del tipo T</returns>
     public static List<T> LoadListFromJson<T>(string nameFile)
     {
-        string pathJson = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\DataTest\" + nameFile));
+        var projectPath = AutomationUtils.GetPathFromProject();
+        var pathJson = Path.Combine(projectPath, "Resource", "DataTest", nameFile);
         if (string.IsNullOrWhiteSpace(pathJson))
             throw new ArgumentException("La ruta del archivo no puede estar vacía.");
 
@@ -33,7 +34,9 @@ public static class JsonHelper
     /// <returns>Objeto del tipo T</returns>
     public static T LoadObjectFromJson<T>(string nameFile)
     {
-        string pathJson = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\DataTest\" + nameFile));
+        // Build images directory under project: <projectRoot>/Reporte/Images
+        var projectPath = AutomationUtils.GetPathFromProject();
+        var pathJson = Path.Combine(projectPath, "Resource", "DataTest", nameFile);
         if (string.IsNullOrWhiteSpace(pathJson))
             throw new ArgumentException("La ruta del archivo no puede estar vacía.");
 

@@ -1,4 +1,4 @@
-﻿namespace AutomationPracticeDemo.Test.Tests.SingUp.Assets;
+﻿namespace AutomationPracticeDemoTest.Tests.SingUp.Assets;
 
 public class AccountInfo
 {

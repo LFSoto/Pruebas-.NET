@@ -1,7 +1,7 @@
-﻿using AutomationPracticeDemo.Test.Pages.MainComponents;
+﻿using AutomationPracticeDemoTest.Pages.MainComponents;
 using OpenQA.Selenium;
 
-namespace AutomationPracticeDemo.Tests.Pages;
+namespace AutomationPracticeDemoTests.Pages;
 
 public class HomePage : BasePage
 {

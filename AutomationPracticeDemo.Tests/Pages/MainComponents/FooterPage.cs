@@ -1,7 +1,7 @@
-﻿using AutomationPracticeDemo.Tests.Pages;
+﻿using AutomationPracticeDemoTests.Pages;
 using OpenQA.Selenium;
 
-namespace AutomationPracticeDemo.Test.Pages.MainComponents;
+namespace AutomationPracticeDemoTest.Pages.MainComponents;
 
 public class FooterPage : BasePage
 {

@@ -1,7 +1,8 @@
-﻿using AutomationPracticeDemo.Test.Pages.MainComponents;
+﻿using AutomationPracticeDemoTest.Pages.MainComponents;
+using AutomationPracticeDemoTests.Pages;
 using OpenQA.Selenium;
 
-namespace AutomationPracticeDemo.Tests.Pages;
+namespace AutomationPracticeDemoTest.Pages.SingUpLogin;
 
 public class SingUpLoginPage : BasePage
 {
@@ -23,10 +24,9 @@ public class SingUpLoginPage : BasePage
 
     public void LoginUsuario(string email, string password)
     {
-        // Email
         TypeText(emailLoginInputLocator, email);
-        // Name
         TypeText(passwordInputLocator, password);
+        MouseHover(loginButtonLocator);
         // Click en el botón de Login
         ClickElement(loginButtonLocator);
     }

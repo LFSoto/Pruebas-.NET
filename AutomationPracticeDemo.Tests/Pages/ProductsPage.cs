@@ -1,8 +1,8 @@
-﻿using AutomationPracticeDemo.Tests.Pages;
-using AutomationPracticeDemo.Tests.Utils;
+﻿using AutomationPracticeDemoTests.Pages;
+using AutomationPracticeDemoTests.Utils;
 using OpenQA.Selenium;
 
-namespace AutomationPracticeDemo.Test.Pages;
+namespace AutomationPracticeDemoTest.Pages;
 
 public class ProductsPage : BasePage
 {

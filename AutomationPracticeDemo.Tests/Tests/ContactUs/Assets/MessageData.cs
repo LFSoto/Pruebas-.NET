@@ -1,4 +1,4 @@
-﻿namespace AutomationPracticeDemo.Test.Tests.ContactUs.Assets;
+﻿namespace AutomationPracticeDemoTest.Tests.ContactUs.Assets;
 
 public class MessageData
 {

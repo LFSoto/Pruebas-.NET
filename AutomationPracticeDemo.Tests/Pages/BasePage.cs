@@ -1,8 +1,9 @@
-﻿using AutomationPracticeDemo.Tests.Utils;
+﻿using AutomationPracticeDemoTest.Utils;
+using AutomationPracticeDemoTests.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace AutomationPracticeDemo.Tests.Pages;
+namespace AutomationPracticeDemoTests.Pages;
 
 public class BasePage
 {
@@ -169,21 +170,42 @@ public class BasePage
 
     protected void ScrollToElement(By locator, int attempts = 3)
     {
-        var retryDelayMs = 500;
-
         if (attempts <= 0)
             throw new Exception($"Error al hacer scroll hasta el elemento con locator {locator}: número de intentos inválido.");
 
         try
         {
-            var element = GetElement(locator);
-            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView({ block: 'center', inline: 'nearest' });", element);
+            // Attempt to scroll the element into view
+            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView({ block: 'center', inline: 'nearest' });", GetElement(locator));
 
-            // Small pause to allow layout to stabilize after scrolling
-            Thread.Sleep(200);
+            // Wait briefly, polling until the element is visible. This avoids Thread.Sleep and uses WebDriver's waiting mechanism.
+            var localWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(2));
+            localWait.PollingInterval = TimeSpan.FromMilliseconds(200);
+            localWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
+            localWait.Until(d =>
+            {
+                try
+                {
+                    var element = d.FindElement(locator);
+                    return element.Displayed;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+            });
 
-            if (element.Displayed)
-                return;
+            return;
+        }
+        catch (WebDriverTimeoutException)
+        {
+            // If we timed out waiting for visibility, we'll retry below (unless attempts exhausted)
+            if (attempts == 1)
+                throw new Exception($"Error al hacer scroll hasta el elemento con locator {locator} después de varios intentos.");
         }
         catch (Exception ex) when (ex is NoSuchElementException || ex is StaleElementReferenceException)
         {
@@ -192,8 +214,7 @@ public class BasePage
             // otherwise continue to retry
         }
 
-        // wait a bit before next attempt and retry recursively
-        Thread.Sleep(retryDelayMs);
+        // Retry recursively without Thread.Sleep; WebDriverWait handled polling
         ScrollToElement(locator, attempts - 1);
     }
 
@@ -202,9 +223,9 @@ public class BasePage
         // Obtiene el input type=file y envía la ruta completa del archivo para subirlo
         var fileInput = GetElementUntilIsVisible(locator);
 
-        // Build images directory under project: <projectRoot>/Reporte/Images
-        var projectPath = ScreenshotHelper.GetPathFromProject();
-        var imagesDir = Path.Combine(projectPath, "Images", imageFileName);
+        // Build images directory under project: <projectRoot>/Resource/Images
+        var projectPath = AutomationUtils.GetPathFromProject();
+        var imagesDir = Path.Combine(projectPath, "Resource", "Images", imageFileName);
 
         if (!File.Exists(imagesDir))
             throw new FileNotFoundException($"No se encontró la imagen '{imageFileName}' en rutas esperadas.", imagesDir);

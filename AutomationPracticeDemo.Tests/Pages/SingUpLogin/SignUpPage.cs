@@ -1,8 +1,9 @@
-﻿using AutomationPracticeDemo.Test.Pages;
+﻿using AutomationPracticeDemoTest.Pages;
+using AutomationPracticeDemoTests.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace AutomationPracticeDemo.Tests.Pages;
+namespace AutomationPracticeDemoTest.Pages.SingUpLogin;
 
 public class SignUpPage : BasePage
 {

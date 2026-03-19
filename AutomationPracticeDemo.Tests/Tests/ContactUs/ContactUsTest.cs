@@ -1,15 +1,15 @@
-﻿
-using AutomationPracticeDemo.Test.Tests.ContactUs.Assets;
-using AutomationPracticeDemo.Tests;
-using AutomationPracticeDemo.Tests.Pages;
-using AutomationPracticeDemo.Tests.Utils;
-using OpenQA.Selenium;
+﻿using AutomationPracticeDemoTest.Tests.ContactUs.Assets;
+using AutomationPracticeDemoTests;
+using AutomationPracticeDemoTests.Pages;
+using AutomationPracticeDemoTests.Utils;
 
-namespace AutomationPracticeDemo.Test.Tests.ContactUs;
+namespace AutomationPracticeDemoTest.Tests.ContactUs;
 
 [TestFixture]
 public class ContactUsTest : BaseTest
 {
+    private string folderName = "ContactUsTest";
+
     [Test, Category("ContactUs"), TestCaseSource(typeof(MessageDataSource), nameof(MessageDataSource.MessageInformation))]
     public void ValidarFormularioContactUs(MessageData data)
     {
@@ -22,11 +22,11 @@ public class ContactUsTest : BaseTest
         var contactUsPage = homePage.TopMenu.GoToContactUsPage();
         contactUsPage.FillContactUsForm(name, email, subject, message, "camiseta_01.jpg");
         ScreenshotHelper.TakeScreenshot(Driver, $"Llenado_Formulario_{email}"
-            .Replace("@test.com", "").Trim());
+            .Replace("@test.com", "").Trim(), folderName);
         contactUsPage.ClickSubmitButton();
         contactUsPage.AcceptAlert();
         Assert.That(contactUsPage.GetAlertSuccessMessage(), Is.EqualTo("Success! Your details have been submitted successfully."),
             "El mensaje de éxito no es el esperado.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"Registro_formulario_contactus_{email}".Replace("@test.com", "").Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"Registro_formulario_contactus_{email}".Replace("@test.com", "").Trim(), folderName);
     }
 }

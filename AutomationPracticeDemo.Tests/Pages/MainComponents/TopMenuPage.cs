@@ -1,7 +1,8 @@
-﻿using AutomationPracticeDemo.Tests.Pages;
+﻿using AutomationPracticeDemoTests.Pages;
+using AutomationPracticeDemoTest.Pages.SingUpLogin;
 using OpenQA.Selenium;
 
-namespace AutomationPracticeDemo.Test.Pages.MainComponents;
+namespace AutomationPracticeDemoTest.Pages.MainComponents;
 
 public class TopMenuPage : BasePage
 {

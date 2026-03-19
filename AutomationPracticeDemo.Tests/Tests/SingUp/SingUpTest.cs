@@ -1,11 +1,14 @@
-﻿using AutomationPracticeDemo.Test.Tests.SingUp.Assets;
-using AutomationPracticeDemo.Tests.Pages;
-using AutomationPracticeDemo.Tests.Utils;
+﻿using AutomationPracticeDemoTest.Tests.SingUp.Assets;
+using AutomationPracticeDemoTests.Pages;
+using AutomationPracticeDemoTests.Utils;
 
-namespace AutomationPracticeDemo.Tests.Tests.SingUpTest;
+namespace AutomationPracticeDemoTests.Tests.SingUpTest;
 
+[TestFixture]
 public class SingUpTest : BaseTest
 {
+    private string folderName = "SingUpTest";
+
     [Test, Category("SingUp"), TestCaseSource(typeof(SingUpDataSource), nameof(SingUpDataSource.AccountInformation))]
     public void RegistroDeUsuarioTest(AccountData data)
     {
@@ -30,9 +33,9 @@ public class SingUpTest : BaseTest
         var accountCreatedPage =  signUpPage.GoToAccountCreatedPage();
         Assert.That(accountCreatedPage.GetCreatedAccountTitle(), Is.EqualTo("ACCOUNT CREATED!"),
             "El mensaje de cuenta creada no es el esperado.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"Cuenta_Creada_{email}".Replace("@test.com","").Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"Cuenta_Creada_{email}".Replace("@test.com","").Trim(), folderName);
         homePage = accountCreatedPage.ClickContinueButton();
         Assert.That(homePage.TopMenu.GetLoggedUser(), Does.Contain(usuario), "El usuario logueado no es el esperado.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"Nueva_Cuenta_Login_{email}".Replace("@test.com","").Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"Nueva_Cuenta_Login_{email}".Replace("@test.com","").Trim(), folderName);
     }
 }

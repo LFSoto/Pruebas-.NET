@@ -1,6 +1,6 @@
-﻿using AutomationPracticeDemo.Test.Utils;
+﻿using AutomationPracticeDemoTest.Utils;
 
-namespace AutomationPracticeDemo.Test.Tests.Login.Asserts;
+namespace AutomationPracticeDemoTest.Tests.Login.Asserts;
 
 public class LoginData
 {

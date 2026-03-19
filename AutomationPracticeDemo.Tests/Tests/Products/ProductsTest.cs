@@ -1,13 +1,13 @@
-﻿using AutomationPracticeDemo.Tests;
-using AutomationPracticeDemo.Tests.Pages;
-using AutomationPracticeDemo.Tests.Utils;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using AutomationPracticeDemoTests;
+using AutomationPracticeDemoTests.Pages;
+using AutomationPracticeDemoTests.Utils;
 
-namespace AutomationPracticeDemo.Test.Tests.Products;
+namespace AutomationPracticeDemoTest.Tests.Products;
 
+[TestFixture]
 public class ProductsTest : BaseTest
 {
+    private string folderName = "ProductsTest";
     private readonly string[] _initialProductNames = 
         [ "Rust Red Linen Saree", "Frozen Tops For Kids", "Sleeveless Dress", "Winter Top",
         "Blue Top", "Colour Blocked Shirt – Sky Blue" ];
@@ -32,13 +32,13 @@ public class ProductsTest : BaseTest
         productsPage.AgregarProductoAlCarrito(producto1);
         Assert.That(productsPage.GetSuccessMessageAfterAddingProductToCart(),
             Is.EqualTo("Added!"), "El mensaje de producto agregado no es el esperado.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"Producto_Agregado_{producto1}".Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"Producto_Agregado_{producto1}".Trim(), folderName);
         productsPage.ClickContinueShoppingModal();
         // Agregar el segundo producto al carrito y validar el mensaje de éxito
         productsPage.AgregarProductoAlCarrito(producto2);
         Assert.That(productsPage.GetSuccessMessageAfterAddingProductToCart(),
             Is.EqualTo("Added!"), "El mensaje de producto agregado no es el esperado.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"Producto_Agregado_{producto2}".Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"Producto_Agregado_{producto2}".Trim(), folderName);
         var cartPage = productsPage.GoToCartPage();
 
         Assert.That(cartPage.GetTotalByProduct(producto1),
@@ -47,7 +47,7 @@ public class ProductsTest : BaseTest
         Assert.That(cartPage.GetTotalByProduct(producto2),
             Is.EqualTo(cartPage.GetPriceByProduct(producto2) * cartPage.GetQuantityByProduct(producto2)),
             $"El total del producto '{producto2}' no es correcto.");
-        ScreenshotHelper.TakeScreenshot(Driver, $"Validacion_Cart_Products_{producto1}_{producto2}".Trim());
+        ScreenshotHelper.TakeScreenshot(Driver, $"Validacion_Cart_Products_{producto1}_{producto2}".Trim(), folderName);
     }
 
     public string GetRandomProductName()
