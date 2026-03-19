@@ -1,48 +1,44 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace AutomationPracticeDemo.Tests.Pages.MainComponents
 {
     public class menuPage
     {
         private readonly IWebDriver _driver;
-        private readonly WebDriverWait _wait;
-
         public menuPage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
         }
+        // Declaración de los elementos de la página
 
-        // Elementos del menu
-        // Nota: selectors más tolerantes (evitan depender de un único header)
-        private IWebElement signupLoginOption => _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector("a[href='/login']")));
-        private IWebElement productOption => _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector("a[href='/products']")));
-        private IWebElement contactUsOption => _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector("a[href='/contact_us']")));
+        //Elementos del menu
+        private IWebElement signupLoginOption => _driver.FindElement(By.CssSelector("li a[href=\"/login\"]"));
+        private IWebElement productOption => _driver.FindElement(By.CssSelector("li a[href=\"/products\"]"));
+        private IWebElement logoutOption => _driver.FindElement(By.CssSelector("li a[href=\"/logout\"]"));
+        private IWebElement contactUsOption => _driver.FindElement(By.CssSelector("li a[href=\"/contact_us\"]"));
 
-        private IWebElement logoutOption => _wait.Until(d =>
+
+        // Declaración de metodos para interactuar con los elementos del menu de navegación
+        public void ClickSignUpLogin()
         {
-            try
-            {
-                var el = d.FindElement(By.CssSelector("a[href='/logout']"));
-                return el.Displayed ? el : null;
-            }
-            catch (NoSuchElementException)
-            {
-                return null;
-            }
-        });
-
-        public void ClickSignUpLogin() => signupLoginOption.Click();
-
-        public void ClickProductOption() => productOption.Click();
-
-        public void ClickContactUsOption() => contactUsOption.Click();
-
+            signupLoginOption.Click();
+        }
+        public void ClickProductOption()
+        {
+            productOption.Click();
+        }
+        public void ClickContactUsOption()
+        {
+            contactUsOption.Click();
+        }   
         public string validatedUserLogout()
         {
-            // Espera a que el logout esté visible (indica sesión iniciada)
+            if (logoutOption.Displayed == false)
+            {
+                throw new NoSuchElementException("El elemento Logout no está visible en la página.");
+            }
             return logoutOption.Text;
         }
+
     }
 }

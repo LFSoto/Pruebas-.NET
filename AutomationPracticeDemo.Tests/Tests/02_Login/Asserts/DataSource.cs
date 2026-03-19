@@ -4,7 +4,7 @@ namespace AutomationPracticeDemo.Tests.Tests.Login.Asserts
 {
     public static class LoginDataSource
     {
-        private const string nameJson = "DataUsers.json";
+        private const string nameJson = "DataUser.json";
 
         /// <summary>
         /// Metodos que nos permite obtener los usuarios validos y no validos desde el archivo Json y nos permite separar los casos de prueba

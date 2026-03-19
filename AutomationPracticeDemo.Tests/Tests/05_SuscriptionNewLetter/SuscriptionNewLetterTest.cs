@@ -8,7 +8,7 @@ namespace AutomationPracticeDemo.Tests.Tests.SuscriptionNewLetter
     public class SuscriptionNewLetterTest : TestBase
     {
         const string email = "SOFT-740@cenfotec.com";
-        
+
         /// <summary>
         /// Ejercicio 5: Sucripción al newsletter
         /// </summary

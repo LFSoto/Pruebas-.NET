@@ -1,16 +1,14 @@
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace AutomationPracticeDemo.Tests.Pages
 {
     public class FormPage
     {
         private readonly IWebDriver _driver;
-        private readonly WebDriverWait _wait;
+
         public FormPage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
 
         private IWebElement NameInput => _driver.FindElement(By.Id("name"));

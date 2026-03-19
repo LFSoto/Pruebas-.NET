@@ -13,18 +13,11 @@ namespace AutomationPracticeDemo.Tests.Utils
         {
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
-            options.AddArgument("--disable-notifications");
-            options.AddArgument("--disable-infobars");
-            options.AddArgument("--headless=new");
-            options.AddArgument("--window-size=1920,1080");
-
             Driver = new ChromeDriver(options);
 
-            // Implicit wait corto. Los PageObjects deben usar WebDriverWait.
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-
-            // Entrar siempre por la home
-            Driver.Navigate().GoToUrl("https://automationexercise.com/");
+            // Configurar tiempo de espera implícito de 10 segundos
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Driver.Navigate().GoToUrl("https://automationexercise.com/signup");
         }
 
         [TearDown]
