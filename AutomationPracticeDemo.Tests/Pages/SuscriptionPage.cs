@@ -44,15 +44,6 @@ namespace AutomationPracticeDemo.Tests.Pages
             return susbscribeMessage.Text;
         }
 
-        /*
-        IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-        js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
-            IWebElement susbscribe = Driver.FindElement(By.Id("susbscribe_email"));
-        susbscribe.SendKeys("Gustavo@emial.com");
-            IWebElement susbscribeBtn = Driver.FindElement(By.Id("subscribe"));
-        susbscribeBtn.Click();
-            IWebElement susbscribeMessage = Driver.FindElement(By.Id("success-subscribe"));
-        Assert.That(susbscribeMessage.Text, Is.EqualTo("You have been successfully subscribed!"));
-        */
+     
     }
 }
