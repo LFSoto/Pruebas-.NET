@@ -18,11 +18,11 @@ dotnet build
 ```
 
 ## Estructura del proyecto
-•	/Pages/ - clases que representan las páginas del sitio, con métodos para interactuar con los elementos de la página.
-•	/Resource/ - archivos de recursos, como archivos JSON para datos de prueba.
-•	/Screenshots/ — capturas de pantalla generadas por las pruebas, organizadas nombre y fecha de ejecución.
-•	/Tests/ - clases que contienen los casos de prueba, cada clase representa un flujo de prueba específico.
-•	/Utils/ - clases utilitarias para funciones comunes, como generación de datos aleatorios, manejo de archivos, etc.
+•	/Pages - clases que representan las páginas del sitio, con métodos para interactuar con los elementos de la página.
+•	/Resource - archivos de recursos, como archivos JSON para datos de prueba.
+•	/Screenshots — capturas de pantalla generadas por las pruebas, organizadas nombre y fecha de ejecución.
+•	/Tests - clases que contienen los casos de prueba, cada clase representa un flujo de prueba específico.
+•	/Utils - clases utilitarias para funciones comunes, como generación de datos aleatorios, manejo de archivos, etc.
 
 ## Pruebas
 Para resolver la práctica #4, se realizaron los siguientes flujos siguiendo el patrón Page Object Model (POM) y Data-Driven Testing (DDT) para el manejo de datos:

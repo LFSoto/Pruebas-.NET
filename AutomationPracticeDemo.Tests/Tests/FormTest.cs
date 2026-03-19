@@ -7,10 +7,12 @@ namespace AutomationPracticeDemo.Tests.Tests
 {
     public class FormTests : TestBase
     {
-        [Test]
+		[Test]
         public void Should_FillAndSubmitForm()
         {
-            var formPage = new FormPage(Driver);
+
+			Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
+			var formPage = new FormPage(Driver);
             formPage.FillForm("Juan Perez", "juan@test.com", "88888888", "Costa Rica");
             formPage.Submit();
 
@@ -21,6 +23,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 		[Test]
 		public void Should_FillandSubmitSection1()
 		{
+			Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
 			var formPage = new FormPage(Driver);
 			formPage.FillSection1("Francinni");
 			ScreenshotHelper.TakeScreenshot(Driver, "section1_textField1.png");
@@ -39,6 +42,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 		[Test]
 		public void Should_SelectCheckBoxMonday()
 		{
+			Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
 			var formPage = new FormPage(Driver);
 			formPage.SelectCheckBoxMonday();
 			
@@ -52,6 +56,8 @@ namespace AutomationPracticeDemo.Tests.Tests
 		[Test]
 		public void Should_SelectGender()
 		{
+
+			Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
 			var formPage = new FormPage(Driver);
 			formPage.SelectGender();
 			
@@ -65,6 +71,7 @@ namespace AutomationPracticeDemo.Tests.Tests
 		[Test]
 		public void Should_SelectDatepicker()
 		{
+			Driver.Navigate().GoToUrl("https://testautomationpractice.blogspot.com/");
 			var formPage = new FormPage(Driver);
 			formPage.OpenDatePicker1();
 			formPage.SelectDay();
