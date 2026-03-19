@@ -12,10 +12,19 @@ namespace AutomationPracticeDemo.Tests.Utils
         public void Setup()
         {
             var options = new ChromeOptions();
+
+            // CI-friendly defaults (GitHub Actions uses Linux containers/VMs)
+            // Headless is required in most CI environments.
+            options.AddArgument("--headless=new");
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("--window-size=1920,1080");
+
+            // Keep existing behavior for local runs
             options.AddArgument("--start-maximized");
+
             Driver = new ChromeDriver(options);
 
-            // Configurar tiempo de espera implícito de 10 segundos
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Driver.Navigate().GoToUrl("https://automationexercise.com/signup");
         }

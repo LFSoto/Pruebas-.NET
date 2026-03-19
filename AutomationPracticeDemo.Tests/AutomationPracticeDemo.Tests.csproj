@@ -21,6 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\Resource\DataTest\**\*.json" LinkBase="Resource\DataTest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
