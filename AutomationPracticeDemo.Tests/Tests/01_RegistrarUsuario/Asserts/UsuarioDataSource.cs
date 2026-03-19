@@ -23,7 +23,6 @@ namespace AutomationPracticeDemo.Tests.Tests.RegistrarUsuario.Asserts
 
 			foreach (var item in lista)
 			{
-				Console.WriteLine(" item.Name " + item.Name);
 				yield return new TestCaseData(item.Name, item.Password, item.FirstName, item.LastName, item.Address, item.Country, item.State, item.City, item.Zipcode, item.MobileNumber);
 				
 			}

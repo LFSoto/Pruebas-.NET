@@ -160,6 +160,8 @@ namespace AutomationPracticeDemo.Tests.Tests
 
 			//Se valida que se muestra el nombre del usuario después de iniciar sesión
 			var loginLabel = Driver.FindElement(By.XPath("//a[contains(text(),'Logged in as')]"));
+			WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+			wait.Until(drv => loginLabel.Displayed);
 			ScreenshotHelper.TakeScreenshot(Driver, "loggedUser.png");
 			Assert.That(loginLabel.Text, Is.EqualTo("Logged in as " + name), "El nombre de usuario debería mostrarse");
 

@@ -28,6 +28,8 @@ namespace AutomationPracticeDemo.Tests.Pages
 		// Retorna el valor del texto del mensaje de cuenta creada
 		public string LogoutText()
 		{
+			WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+			wait.Until(drv => LogoutOption.Displayed);
 			return LogoutOption.Text;
 		}
 

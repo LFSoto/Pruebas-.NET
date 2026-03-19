@@ -30,36 +30,6 @@ namespace AutomationPracticeDemo.Tests.Tests.RegistrarUsuario.Asserts
 			this.zipCode = zipCode;
 			this.mobileNumber = mobileNumber;
 		}
-		/*
-		[JsonPropertyName("name")]
-		public string Name { get; set; }
-
-		[JsonPropertyName("password")]
-		public string Password { get; set; }
-
-		[JsonPropertyName("firstName")]
-		public string FirstName { get; set; }
-
-		[JsonPropertyName("lastName")]
-		public string LastName { get; set; }
-
-		[JsonPropertyName("address")]
-		public string Address { get; set; }
-
-		[JsonPropertyName("country")]
-		public string Country { get; set; }
-
-		[JsonPropertyName("state")]
-		public string State { get; set; }
-
-		[JsonPropertyName("city")]
-		public string City { get; set; }
-
-		[JsonPropertyName("zipcode")]
-		public string Zipcode { get; set; }
-
-		[JsonPropertyName("mobileNumber")]
-		public string MobileNumber { get; set; }*/
 
 		public string Name
 		{
@@ -127,7 +97,6 @@ namespace AutomationPracticeDemo.Tests.Tests.RegistrarUsuario.Asserts
 		/// <returns>Lista de UsuarioData</returns>
 		public static List<UsuarioData> LoadList(string nombreArchivo)
 		{
-			Console.WriteLine("nombreArchivo " + nombreArchivo);
 			return JsonHelper.LoadListFromJson<UsuarioData>(nombreArchivo);
 		}
 

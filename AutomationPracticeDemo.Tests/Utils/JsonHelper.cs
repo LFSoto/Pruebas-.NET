@@ -30,6 +30,15 @@ public static class JsonHelper
 	/// <returns>Objeto del tipo T</returns>
 	public static T LoadObjectFromJson<T>(string nameFile)
 	{
+
+		var cwd = Directory.GetCurrentDirectory();
+
+		// From repository root (if tests are executed from repo root)
+		Path.GetFullPath(Path.Combine(cwd, "Resource", "DataTest"));
+
+		// From repository root where Resource lives under the test project
+		Path.GetFullPath(Path.Combine(cwd, "AutomationPracticeDemo.Tests", "Resource", "DataTest"));
+
 		string pathJson = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\DataTest\" + nameFile));
 		if (string.IsNullOrWhiteSpace(pathJson))
 			throw new ArgumentException("La ruta del archivo no puede estar vacía.");
