@@ -9,7 +9,8 @@ public static class JsonHelper
     /// <returns>Lista de objetos del tipo T</returns>
     public static List<T> LoadListFromJson<T>(string nameFile)
     {
-        string pathJson = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\DataTest\" + nameFile));
+       // string pathJson = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\DataTest\" + nameFile));
+        string pathJson = Path.Combine(AppContext.BaseDirectory, "Resource", "DataTest", nameFile);
         if (string.IsNullOrWhiteSpace(pathJson))
             throw new ArgumentException("La ruta del archivo no puede estar vacía.");
 

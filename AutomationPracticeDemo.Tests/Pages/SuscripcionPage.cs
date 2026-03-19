@@ -1,3 +1,4 @@
+using AutomationPracticeDemo.Tests.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -25,8 +26,8 @@ namespace AutomationPracticeDemo.Tests.Pages
         }
         public string ValidarMensajeExitoso()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.ElementToBeClickable(MensajeExito));
+            EsperasHelper.Esperar(_driver, MensajeExito, 30);
+
             return MensajeExito.Text;
         }
         public void Enviar()

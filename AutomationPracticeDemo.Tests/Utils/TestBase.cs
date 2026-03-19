@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace AutomationPracticeDemo.Tests.Utils
 {
@@ -30,5 +32,6 @@ namespace AutomationPracticeDemo.Tests.Utils
                 Driver.Dispose();
             }
         }
+        
     }
 }

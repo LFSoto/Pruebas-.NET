@@ -1,3 +1,4 @@
+using AutomationPracticeDemo.Tests.Utils;
 using Microsoft.Win32;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -62,22 +63,19 @@ namespace AutomationPracticeDemo.Tests.Pages
             // Forzar el clic con JavaScript para evitar overlays
             js.ExecuteScript("arguments[0].click();", productoBotton);
             ProductosAgregados.Add(nombreProducto);
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(ModalConfirmacion));
+            EsperasHelper.Esperar(_driver, ModalConfirmacion, 20);
         }
 
         public void ContinuarComprando()
         {
             // Espera a que el modal de confirmación aparezca para dar click
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(ContinuarBoton));
+            EsperasHelper.Esperar(_driver, ContinuarBoton, 20);
             ContinuarBoton.Click();
         }
         public void VerCarrito()
         {
             // Espera a que el modal de confirmación aparezca para dar click
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(VerCarritoBoton));
+            EsperasHelper.Esperar(_driver, VerCarritoBoton, 20);
             VerCarritoBoton.Click();
         }
         public void ProductoBoton_Click()

@@ -1,6 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using AutomationPracticeDemo.Tests.Utils;
 using System.Reflection;
 using System.Xml.Linq;
 
@@ -19,6 +20,7 @@ namespace AutomationPracticeDemo.Tests.Pages
         private IWebElement InputNombre_Registro => _driver.FindElement(By.XPath("//input[@data-qa='signup-name']"));
         private IWebElement InputCorreo_Registro => _driver.FindElement(By.XPath("//input[@data-qa='signup-email']"));
         private IWebElement IngresarBotton_Registro => _driver.FindElement(By.XPath("//button[text()='Signup']"));
+        private IWebElement Form => _driver.FindElement(By.XPath("//form[@action='/signup']"));
         private IWebElement Contrasena => _driver.FindElement(By.Id("password"));
         private IWebElement PrimerNombre => _driver.FindElement(By.Id("first_name"));
         private IWebElement Apellido => _driver.FindElement(By.Id("last_name"));
@@ -37,11 +39,14 @@ namespace AutomationPracticeDemo.Tests.Pages
 
         public void BotonSingUp_Click()
         {
+            EsperasHelper.Esperar(_driver, SingUpBotton,30);
             SingUpBotton.Click();
         }
+        
         public void LlenarRegistro(string contrasena, string primerNombre, string apellido, string direccion, string pais,
             string estado, string ciudad, string codigoZip, string numeroTelefono)
         {
+            EsperasHelper.Esperar(_driver, Form, 30);
             Contrasena.SendKeys(contrasena);
             PrimerNombre.SendKeys(primerNombre);
             Apellido.SendKeys(apellido);
@@ -71,36 +76,32 @@ namespace AutomationPracticeDemo.Tests.Pages
         }
         public void CrearCuentaBoton()
         {
+            EsperasHelper.Esperar(_driver, CrearCuenta_Boton, 30);
             CrearCuenta_Boton.Click();
         }
         public void ContinuatBoton()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.ElementToBeClickable(Continuar_Boton));
+            EsperasHelper.Esperar(_driver, Continuar_Boton, 30);
             Continuar_Boton.Click();
         }
         public void EliminarCuentaBoton()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.ElementToBeClickable(EliminarCuenta_Boton));
+            EsperasHelper.Esperar(_driver, EliminarCuenta_Boton, 30);
             EliminarCuenta_Boton.Click();
         }
         public void ContinuarEliminacionBoton()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.ElementToBeClickable(ContinuarEliminacion_Boton));
+            EsperasHelper.Esperar(_driver, ContinuarEliminacion_Boton, 30);
             ContinuarEliminacion_Boton.Click();
         }
         public string ValidarMensajeCreacion()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.ElementToBeClickable(MensajeCreacion));
+            EsperasHelper.Esperar(_driver, MensajeCreacion, 30);
             return MensajeCreacion.Text;
         }
         public string ValidarLogout()
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.ElementToBeClickable(Validarlogout));
+            EsperasHelper.Esperar(_driver, Validarlogout, 30);
             return Validarlogout.Text;
         }
     }

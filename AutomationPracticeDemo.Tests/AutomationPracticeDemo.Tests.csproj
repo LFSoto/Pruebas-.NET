@@ -28,5 +28,7 @@
   <ItemGroup>
     <Folder Include="ArchivoAdjunto\" />
   </ItemGroup>
-
+  <ItemGroup>
+   <None Include="Resource\DataTest\*.json" CopyToOutputDirectory="Always" />
+  </ItemGroup>
 </Project>
