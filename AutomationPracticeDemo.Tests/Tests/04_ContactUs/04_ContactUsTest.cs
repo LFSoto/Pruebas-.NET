@@ -11,7 +11,9 @@ namespace AutomationPracticeDemo.Tests.Tests._04_ContactUs
 		public void Caso4_ContactUs(string name, string email, string subject, string message)
 		{
 			//Variables para la ruta de la imagen a adjuntar en el formulario de contacto
-			string rutaImagen = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\Paisaje.jpg"));
+			//string rutaImagen = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resource\Paisaje.jpg"));
+			// Resolve file from repo root (works in Windows + Linux runners)
+			string rutaImagen = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Resource", "Paisaje.jpg"));
 
 			var menuPage = new MenuPage(Driver);
 			var contactUsPage = new ContactUsPage(Driver);

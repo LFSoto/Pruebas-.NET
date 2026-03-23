@@ -18,6 +18,14 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.35.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="146.0.7680.7200" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include=".github\workflows\" />
+    <!-- Test data needed at runtime (Linux runner is case-sensitive) -->
+    <None Include="Resource\DataTest\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />

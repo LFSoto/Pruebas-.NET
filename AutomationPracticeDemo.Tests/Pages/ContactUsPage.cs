@@ -32,6 +32,8 @@ namespace AutomationPracticeDemo.Tests.Pages
 			SubjectField.SendKeys(subject);
 			MessageField.SendKeys(message);
 			Archivo.SendKeys(rutaImagen);
+
+
 		}
 
 		//Se da click en el botón de submit para enviar el formulario de contacto
