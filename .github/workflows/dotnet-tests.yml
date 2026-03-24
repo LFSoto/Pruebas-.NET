@@ -19,10 +19,10 @@ jobs:
           dotnet-version: "9.0.x"
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore AutomationPracticeDemo.sln
         
       - name: Build (Release)
-        run: dotnet build -c Release --no-restore
+        run: dotnet build AutomationPracticeDemo.sln -c Release --no-restore
 
       - name: Run tests
         run: dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage" --logger "trx;LogFileName=test-results.trx" --results-directory ./TestResults
