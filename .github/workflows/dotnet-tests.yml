@@ -4,12 +4,20 @@ on:
   push:
     branches:
       - main
+<<<<<<< HEAD
       - Semana5-GitActions
+=======
+      - SilviaMunoz-GitActions
+>>>>>>> b616e73ce239e97b800842e7de16e9b8aab1265e
   pull_request:
     branches:
       - main
       - develop
+<<<<<<< HEAD
       - Semana5-GitActions
+=======
+      - SilviaMunoz-GitActions
+>>>>>>> b616e73ce239e97b800842e7de16e9b8aab1265e
 
 permissions:
   contents: write
