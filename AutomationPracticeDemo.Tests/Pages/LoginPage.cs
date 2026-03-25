@@ -32,7 +32,6 @@ namespace AutomationPracticeDemo.Tests.Pages
             passwordField.SendKeys(password);
         }
 
-        // ✅ Método corregido para hacer click en el botón de login
         public void ClickLogin()
         {
             var loginButton = Driver.FindElement(By.CssSelector("button[data-qa='login-button']"));

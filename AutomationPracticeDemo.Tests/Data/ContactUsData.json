@@ -1,0 +1,14 @@
+[
+    {
+        "Name": "Silvia",
+        "Email": "silvia@test.com",
+        "Subject": "Consulta de prueba",
+        "Message": "Este es un mensaje de prueba enviado desde el Contact Us form."
+    },
+    {
+        "Name": "Maria",
+        "Email": "maria@example.com",
+        "Subject": "Problema con pedido",
+        "Message": "Hola, tuve un problema con mi pedido y necesito asistencia."
+    }
+]

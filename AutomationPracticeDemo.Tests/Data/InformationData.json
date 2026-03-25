@@ -1,0 +1,25 @@
+[
+    {
+        "AccountInformation": {
+            "Title": "Mrs",
+            "Name": "Silvia",
+            "Email": "silvia0178@gmail.com",
+            "Password": "Password123",
+            "Day": "30",
+            "Month": "5",
+            "Year": "1988"
+        },
+        "AddressInformation": {
+            "FirstName": "Elena",
+            "LastName": "Muñoz",
+            "Company": "Banco BCR",
+            "Address": "Calle Principal 123",
+            "Address2": "Apartamento 4B",
+            "Country": "Canada",
+            "State": "Ontario",
+            "City": "Toronto",
+            "Zipcode": "M5H 2N2",
+            "MobileNumber": "1234567890"
+        }
+    }
+]
