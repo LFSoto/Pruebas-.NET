@@ -1,4 +1,4 @@
-﻿using Reqnroll;
+using Reqnroll;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -14,9 +14,13 @@ namespace AutomationPracticeDemo.Tests.StepDefinitions.Hooks
             _scenarioContext = scenarioContext;
         }
 
-        [BeforeScenario]
+        [BeforeScenario(Order = 0)]
         public void BeforeScenario()
         {
+            // Skip browser setup for API scenarios
+            if (_scenarioContext.ScenarioInfo.Tags.Contains("api"))
+                return;
+
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             options.AddArgument("--disable-notifications");
@@ -26,7 +30,6 @@ namespace AutomationPracticeDemo.Tests.StepDefinitions.Hooks
             IWebDriver driver = new ChromeDriver(options);
             driver.Navigate().GoToUrl("https://automationexercise.com/");
             _scenarioContext.Set<IWebDriver>(driver);
-            
         }
 
         [AfterScenario]

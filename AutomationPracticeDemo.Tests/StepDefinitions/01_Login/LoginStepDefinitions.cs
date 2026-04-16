@@ -24,8 +24,16 @@ namespace AutomationPracticeDemo.Tests.StepDefinitions
             //_loginData = new LoginDataSource();
         }
 
+        //   Features
+        //       ^
+        //       |
+        // Step definitions
+        //       ^
+        //       |
+        //  Page Objects
 
         [Given(@"I am on the start page")]
+        [When(@"I am on the start page")]
         public void GivenIAmOnTheStartPage()
         {
             _menuPage.ClickHomeOption();

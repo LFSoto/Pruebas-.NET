@@ -1,4 +1,4 @@
-锘縰sing AutomationPracticeDemo.Tests.Pages;
+using AutomationPracticeDemo.Tests.Pages;
 using AutomationPracticeDemo.Tests.Pages.MainComponents;
 using AutomationPracticeDemo.Tests.Tests._01_SingUp.Asserts;
 using AutomationPracticeDemo.Tests.Utils;
@@ -17,7 +17,7 @@ namespace AutomationPracticeDemo.Tests.Tests._01_SingUp
         public void SingupTest(string name,AccountData userData)
         {
 
-            //Declaraci贸n de variables
+            //Declaraci髇 de variables
             var menuPage = new menuPage(Driver);
             var signUpPage = new SignUpPage(Driver);
             int random = new Random().Next(1, 10000);
@@ -26,11 +26,11 @@ namespace AutomationPracticeDemo.Tests.Tests._01_SingUp
             AddressInfo infoAddress = userData.GetAddressInformation();
             String[] fecha= infoAccount.DateOfBirth.Split('/');
 
-            // Navegaci贸n a la p谩gina de registro
+            // Navegaci髇 a la p醙ina de registro
             menuPage.ClickSignUpLogin();
             Assert.That(signUpPage.GetTitleNewUserSignup(), Is.EqualTo("New User Signup!"));
 
-            //Navegaci贸n al formulario de registro
+            //Navegaci髇 al formulario de registro
             signUpPage.FillSignup(name, emailRandom);
             signUpPage.SubmitSignup();
             Assert.That(signUpPage.GetTitleEnterAccountInfo(), Is.EqualTo("ENTER ACCOUNT INFORMATION"));
@@ -44,13 +44,13 @@ namespace AutomationPracticeDemo.Tests.Tests._01_SingUp
             ScreenshotHelper.TakeScreenshot(Driver, "AddressInformation_test.png");
             signUpPage.SubmitCreateAccount();
 
-            //Validaci贸n de cuenta creada
+            //Validaci髇 de cuenta creada
             Assert.That(signUpPage.GetAccountCreatedTitle(), Is.EqualTo("ACCOUNT CREATED!"));
             Assert.That(signUpPage.GetAccountCreatedMessage, Does.Contain("Congratulations! Your new account has been successfully created! " +
             "You can now take advantage of member privileges to enhance your online shopping experience with us."));
             ScreenshotHelper.TakeScreenshot(Driver, "AccountCreated_test.png");
 
-            //Continuar a la p谩gina principal
+            //Continuar a la p醙ina principal
             signUpPage.SumitContinue();
 
             //Validar que el usuario se ha logueado correctamente

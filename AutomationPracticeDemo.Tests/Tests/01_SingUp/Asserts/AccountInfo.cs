@@ -1,4 +1,4 @@
-﻿
+
 namespace AutomationPracticeDemo.Tests.Tests._01_SingUp.Asserts
 {
     public class AccountInfo
