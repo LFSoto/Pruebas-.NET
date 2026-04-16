@@ -138,7 +138,7 @@ namespace AutomationPracticeDemo.Tests.Features.FakeStore
     await testRunner.WhenAsync("I query all users", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 10
-    await testRunner.ThenAsync("the response should contain a list of users", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.ThenAsync("the response should contain a list of users test", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

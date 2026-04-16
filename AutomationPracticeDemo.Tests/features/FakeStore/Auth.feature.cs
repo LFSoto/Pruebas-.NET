@@ -134,6 +134,12 @@ namespace AutomationPracticeDemo.Tests.Features.FakeStore
 #line 8
     await testRunner.GivenAsync("I have the API base \"https://fakestoreapi.com\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
+#line 9
+    await testRunner.WhenAsync("I login with username \"johnd\" and password \"m38rmF$\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 10
+    await testRunner.ThenAsync("the response should contain a token", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
